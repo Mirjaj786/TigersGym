@@ -7,33 +7,39 @@ const championSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-
+    month: {
+      type: String,
+      default: "January",
+      trim: true,
+    },
+    year: {
+      type: String,
+      default: "2025",
+      trim: true,
+    },
+    attendance: {
+      type: String,
+      default: "30 / 30 Days",
+      trim: true,
+    },
     title: {
       type: String,
-      required: true,
+      default: "Monthly Champion",
       trim: true,
     },
-
     prize: {
       type: String,
-      required: true,
+      default: "Gold Medal",
       trim: true,
     },
-
     image: {
-      url: {
-        type: String,
-        required: true,
-      },
-      fileName: {
-        type: String,
-        required: true,
-      },
+      type: String,
+      required: true,
     },
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 export const ChampionModel = mongoose.model("Champion", championSchema);

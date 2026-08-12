@@ -1,4 +1,4 @@
-import { User } from "../Models/UserModels.js";
+import { User } from "../Models/adminModels.js";
 import jwt from "jsonwebtoken";
 import validator from "validator";
 import { sendEmail } from "../Utils/sendEmail.js";

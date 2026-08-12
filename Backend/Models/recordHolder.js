@@ -2,48 +2,33 @@ import mongoose from "mongoose";
 
 const recordSchema = new mongoose.Schema(
   {
-    name: {
+    member: {
       type: String,
       required: true,
       trim: true,
     },
-
-    title: {
+    recordType: {
       type: String,
       required: true,
       trim: true,
     },
-
-    weight: {
-      type: Number,
-      required: true,
-    },
-
-    prize: {
+    recordValue: {
       type: String,
       required: true,
       trim: true,
     },
-
-    image: {
-      url: {
-        type: String,
-        required: true,
-      },
-      fileName: {
-        type: String,
-        required: true,
-      },
-    },
-
     date: {
-      type: Date,
-      default: Date.now,
+      type: String,
+      default: () => new Date().toLocaleDateString("en-IN"),
+    },
+    image: {
+      type: String,
+      required: true,
     },
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 export const RecordModel = mongoose.model("Record", recordSchema);

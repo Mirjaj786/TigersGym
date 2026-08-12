@@ -103,3 +103,50 @@ export const login = async (req, res) => {
       .json({ message: `Error while Login : ${error.message}` });
   }
 };
+
+export const logout = async (req, res) => {
+  try {
+    const userId = req.admin.userId || req.admin._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not Found!" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Logout Successfull",
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Error while Logout : ${error.message}` });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const userId = req.admin.userId || req.admin._id;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not Found!" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Error while getMe : ${error.message}` });
+  }
+};
