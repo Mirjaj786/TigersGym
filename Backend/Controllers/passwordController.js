@@ -5,7 +5,7 @@ import { sendEmail } from "../Utils/sendEmail.js";
 import bcrypt from "bcrypt";
 
 const RESET_TOKEN_EXPIRY = "15m"; // keep this in sync with the email copy below
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL = process.env.CLIENT_URL || "https://tigersgym.netlify.app";
 
 const buildResetEmail = (resetLink, name) => `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
