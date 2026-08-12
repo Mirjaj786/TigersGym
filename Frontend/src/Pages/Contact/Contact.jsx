@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { submitContactForm } from "../../services/api";
 import {
   FaMapMarkerAlt,
   FaPhoneAlt,
@@ -109,14 +110,10 @@ export default function Contact() {
     }
 
     try {
-      // 1. Post to Backend
-      await fetch("http://localhost:8000/contact/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      // 1. Post to Backend via API service (deployed on Vercel)
+      await submitContactForm(form);
     } catch (err) {
-      console.log("Posting to backend failed, saving locally.");
+      console.log("Posting to backend failed.");
     }
 
     // 2. Save locally for instant persistence in admin dashboard

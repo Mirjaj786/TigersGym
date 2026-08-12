@@ -6,7 +6,7 @@ import { FiLock, FiArrowLeft, FiShield, FiCheckCircle } from "react-icons/fi";
 import "./ResetPass.css";
 import logo from "../../assets/logo.jpeg";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_URL || "https://tigers-gym-zeta.vercel.app";
 
 export default function ResetPassword() {
   const { token } = useParams();

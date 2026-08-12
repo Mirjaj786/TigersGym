@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import "./ForgotPass.css";
 import logo from "../../assets/logo.jpeg";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_URL || "https://tigers-gym-zeta.vercel.app";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
