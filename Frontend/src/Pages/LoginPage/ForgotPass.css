@@ -1,374 +1,251 @@
-/* ===================================================
-   ForgotPass.css
-   Theme : Tiger's Gym
-   Primary : #ff3b3f
-   Background : #111111
-=================================================== */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ═══════════════════════════════════════════════════════════
+   ForgotPass.css – Tigers Gym Admin Portal (Gold & Slate Theme)
+ ═══════════════════════════════════════════════════════════ */
 
 .forgot-page {
   position: relative;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 40px 20px;
-  overflow: hidden;
+  justify-content: center;
   font-family: "Inter", sans-serif;
+  padding: 24px 16px 72px;
+  overflow: hidden;
 }
 
-/* ================= Background ================= */
-
 .forgot-page__bg {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80")
-    center/cover no-repeat;
+  background-image: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=85");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
 }
 
 .forgot-page__overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgba(17, 17, 17, 0.82);
-  backdrop-filter: blur(4px);
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.94) 0%,
+    rgba(13, 17, 23, 0.98) 100%
+  );
+  z-index: 1;
 }
-
-/* ================= Card ================= */
 
 .forgot-card {
   position: relative;
-  z-index: 5;
+  z-index: 2;
   width: 100%;
-  max-width: 430px;
-
-  background: black;
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  backdrop-filter: blur(18px);
-
-  border-radius: 16px;
-
-  padding: 40px;
-
-  color: white;
-
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+  max-width: 440px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 18px;
+  padding: 44px 40px;
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(245, 158, 11, 0.15) inset;
+  animation: cardFadeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* ================= Logo ================= */
-.logo-div{
+.forgot-card__logo {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.logo{
-  height: 120px;
-  width: auto;
-  background: black;
+  margin-bottom: 20px;
 }
 
 .forgot-card__divider {
-  width: 70px;
+  width: 45px;
   height: 3px;
-  background: #ff3b3f;
-  margin: 18px auto 30px;
-  border-radius: 10px;
+  background-color: #f59e0b;
+  border-radius: 2px;
+  margin: 0 auto 24px;
 }
-
-/* ================= Header ================= */
 
 .forgot-card__header {
   text-align: center;
-  margin-bottom: 35px;
+  margin-bottom: 28px;
 }
 
 .forgot-card__header h1 {
-  font-size: 2rem;
-  margin-bottom: 12px;
-  color: white;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 6px;
 }
 
 .forgot-card__header p {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
-  line-height: 1.7;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  line-height: 1.5;
 }
-
-/* ================= Form ================= */
 
 .forgot-form {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .forgot-form__group {
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .forgot-form__group label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 0.92rem;
-  color: white;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  text-transform: uppercase;
 }
 
 .forgot-form__input-wrap {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .forgot-form__icon {
   position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-  color: #ff3b3f;
-  font-size: 18px;
+  left: 14px;
+  color: #94a3b8;
+  font-size: 1.05rem;
 }
 
 .forgot-form__input-wrap input {
   width: 100%;
-  height: 52px;
-
-  padding-left: 48px;
-  padding-right: 15px;
-
+  padding: 13px 14px 13px 44px;
+  background-color: #0f172a;
+  border: 1px solid #334155;
   border-radius: 10px;
-
-  border: 1px solid rgba(255, 255, 255, 0.1);
-
-  background: rgba(255, 255, 255, 0.05);
-
-  color: white;
-
+  color: #ffffff;
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
   outline: none;
-
-  transition: 0.3s;
-}
-
-.forgot-form__input-wrap input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  transition: all 0.25s ease;
 }
 
 .forgot-form__input-wrap input:focus {
-  border-color: #ff3b3f;
-  box-shadow: 0 0 0 3px rgba(255, 59, 63, 0.15);
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
 }
-
-/* ================= Buttons ================= */
 
 .forgot-btn {
-  height: 52px;
-
-  border: none;
-
+  width: 100%;
+  padding: 14px 24px;
   border-radius: 10px;
-
+  font-family: "Oswald", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-
-  font-size: 0.95rem;
-
-  font-weight: 600;
-
-  display: flex;
-
+  display: inline-flex;
   align-items: center;
-
   justify-content: center;
-
-  gap: 10px;
-
-  transition: 0.3s;
-
+  gap: 8px;
   text-decoration: none;
-}
-
-.forgot-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
+  transition: all 0.2s ease;
 }
 
 .forgot-btn--primary {
-  background: #ff3b3f;
-  color: white;
+  background-color: #f59e0b;
+  color: #000000;
+  border: none;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
 }
 
-.forgot-btn--primary:hover:not(:disabled) {
-  background: #e3292d;
+.forgot-btn--primary:hover {
+  background-color: #d97706;
+  transform: translateY(-2px);
 }
 
 .forgot-btn--secondary {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid #334155;
 }
 
-.forgot-btn--secondary:hover:not(:disabled) {
-  border-color: #ff3b3f;
-  color: #ff3b3f;
+.forgot-btn--secondary:hover {
+  background-color: rgba(255, 255, 255, 0.16);
 }
-
-/* ================= Security ================= */
 
 .forgot-security {
-  margin-top: 22px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  gap: 8px;
-
-  font-size: 0.82rem;
-
-  color: rgba(255, 255, 255, 0.6);
-
+  gap: 7px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  line-height: 1.5;
   text-align: center;
 }
 
-.forgot-security svg {
-  color: #ff3b3f;
+.forgot-security-icon {
+  color: #f59e0b;
+  font-size: 0.9rem;
 }
-
-/* ================= Success ================= */
 
 .forgot-success {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .forgot-success__icon {
-  font-size: 70px;
-  color: #ff3b3f;
-  margin-bottom: 20px;
+  font-size: 3.5rem;
+  color: #34d399;
 }
 
 .forgot-success h2 {
-  font-size: 1.9rem;
-  margin-bottom: 18px;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin: 0;
 }
 
 .forgot-success p {
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.8;
-}
-
-.forgot-success strong {
-  color: white;
+  font-size: 0.92rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .forgot-success__note {
-  margin-top: 14px;
-  font-size: 0.9rem;
+  font-size: 0.82rem;
+  color: #94a3b8;
 }
 
 .forgot-success__actions {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 35px;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 1rem;
 }
-
-/* ================= Loader ================= */
-
-.loader {
-  width: 18px;
-  height: 18px;
-
-  border: 2px solid rgba(255, 255, 255, 0.3);
-
-  border-top: 2px solid white;
-
-  border-radius: 50%;
-
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* ================= Back Link ================= */
 
 .forgot-page__back {
-  position: absolute;
-
-  left: 30px;
-
-  bottom: 30px;
-
-  z-index: 10;
-
-  display: flex;
-
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
   align-items: center;
-
   gap: 8px;
-
+  margin-top: 28px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #cbd5e1;
   text-decoration: none;
-
-  color: white;
-
-  font-size: 0.95rem;
-
-  transition: 0.3s;
+  transition: all 0.2s ease;
 }
 
 .forgot-page__back:hover {
-  color: #ff3b3f;
-}
-
-/* ================= Responsive ================= */
-
-@media (max-width: 768px) {
-  .forgot-card {
-    padding: 32px 24px;
-
-    max-width: 100%;
-  }
-
-  .forgot-card__header h1 {
-    font-size: 1.8rem;
-  }
-
-  .forgot-success h2 {
-    font-size: 1.6rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .forgot-page {
-    padding: 20px 16px;
-  }
-
-  .forgot-card {
-    padding: 28px 20px;
-  }
-
-  .forgot-card__logo {
-    font-size: 1.7rem;
-  }
-
-  .forgot-card__header h1 {
-    font-size: 1.6rem;
-  }
-
-  .forgot-page__back {
-    left: 20px;
-    bottom: 20px;
-    font-size: 0.9rem;
-  }
-
-  .forgot-success__icon {
-    font-size: 58px;
-  }
+  color: #fbbf24;
+  transform: translateX(-3px);
 }

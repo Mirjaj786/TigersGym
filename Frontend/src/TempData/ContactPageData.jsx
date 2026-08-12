@@ -17,17 +17,17 @@ export const contactCards = [
   {
     icon: <FaMapMarkerAlt />,
     title: "Address",
-    lines: ["Malda, West Bengal"],
+    lines: ["Sultannagar,Harishchandra Pur, Malda, West Bengal"],
   },
   {
     icon: <FaPhoneAlt />,
     title: "Phone",
-    lines: ["+91 XXXXX XXXXX"],
+    lines: ["+91 6294557732"],
   },
   {
     icon: <FaEnvelope />,
     title: "Email",
-    lines: ["your@email.com"],
+    lines: ["www.tigersgym@gmail.com"],
   },
   {
     icon: <FaClock />,
@@ -41,7 +41,6 @@ export const socialLinks = [
   { icon: <FaFacebookF />, label: "Facebook", color: "#1877f2", href: "#" },
   { icon: <FaYoutube />, label: "YouTube", color: "#ff0000", href: "#" },
   { icon: <FaWhatsapp />, label: "WhatsApp", color: "#25d366", href: "#" },
-  { icon: <FaLinkedinIn />, label: "LinkedIn", color: "#0a66c2", href: "#" },
 ];
 
 export const faqs = [

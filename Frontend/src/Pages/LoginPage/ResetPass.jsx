@@ -4,26 +4,20 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { FiLock, FiArrowLeft, FiShield, FiCheckCircle } from "react-icons/fi";
 import "./ResetPass.css";
+import logo from "../../assets/logo.jpeg";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 export default function ResetPassword() {
-  // ─── Token from URL ──────────────────────────────────────
   const { token } = useParams();
   const navigate = useNavigate();
 
-  // ─── Form field state ────────────────────────────────────
   const [newPassword, setNewPassword] = useState("");
-  const [tokenStatus, setTokenStatus] = useState("valid")
-
-  // ─── Submission / success state ─────────────────────────
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(3);
 
- 
-
-  // ─── Auto-redirect countdown after successful reset ─────
+  // Auto-redirect countdown after successful reset
   useEffect(() => {
     if (!success) return;
 
@@ -36,13 +30,10 @@ export default function ResetPassword() {
     return () => clearTimeout(timer);
   }, [success, countdown, navigate]);
 
-  // ─── Submit new password ─────────────────────────────────
+  // Submit new password
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Guard against double submission
-    if (submitting) return;
-    if (!newPassword) return;
+    if (submitting || !newPassword) return;
 
     setSubmitting(true);
 
@@ -50,35 +41,18 @@ export default function ResetPassword() {
       await axios.post(`${API_BASE}/user/reset-password/${token}`, {
         password: newPassword,
       });
+      toast.success("Password reset successful!");
       setSuccess(true);
     } catch (err) {
       const message =
-        err.response?.data?.message || "Failed to reset password. Try again.";
+        err.response?.data?.message || "Failed to reset password. Token may be expired.";
       toast.error(message);
     } finally {
       setSubmitting(false);
     }
   };
 
-  // ─── Verifying token screen ──────────────────────────────
-  if (tokenStatus === "checking") {
-    return (
-      <div className="auth-page">
-        <div className="auth-page__bg" aria-hidden="true" />
-        <div className="auth-page__overlay" aria-hidden="true" />
-        <div className="auth-card auth-card--center" role="main">
-          <span className="loader loader--lg" aria-hidden="true" />
-          <p className="auth-card__verifying-text">Verifying reset link...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Invalid tokens redirect immediately via the effect above,
-  // so render nothing while that navigation happens.
-  // if (tokenStatus === "invalid") return null;
-
-  // ─── Success screen ──────────────────────────────────────
+  // Success screen
   if (success) {
     return (
       <div className="auth-page">
@@ -86,9 +60,8 @@ export default function ResetPassword() {
         <div className="auth-page__overlay" aria-hidden="true" />
 
         <div className="auth-card" role="main">
-          <div className="auth-card__logo" aria-label="Tiger's Gym">
-            <span className="auth-card__logo-fit">TIGER'S</span>
-            <span className="auth-card__logo-zone">GYM</span>
+          <div className="auth-card__logo">
+            <img src={logo} alt="Tigers Gym Logo" className="logo-img" style={{ height: "90px" }} />
           </div>
           <div className="auth-card__divider" aria-hidden="true" />
 
@@ -100,8 +73,7 @@ export default function ResetPassword() {
               Password Updated Successfully
             </h2>
             <p className="auth-card__success-text">
-              Your password has been updated successfully. You can now login
-              using your new password.
+              Your admin password has been updated. You can now log in using your new password.
             </p>
             <Link
               to="/admin/login"
@@ -118,35 +90,30 @@ export default function ResetPassword() {
     );
   }
 
-  // ─── Main reset form ─────────────────────────────────────
+  // Main reset form
   return (
     <div className="auth-page">
-      {/* Background + overlay */}
       <div className="auth-page__bg" aria-hidden="true" />
       <div className="auth-page__overlay" aria-hidden="true" />
 
-      {/* Glassmorphism card */}
       <div className="auth-card" role="main">
         {/* Logo */}
-        <div className="auth-card__logo" aria-label="Tiger's Gym">
-          <span className="auth-card__logo-fit">TIGER'S</span>
-          <span className="auth-card__logo-zone">GYM</span>
+        <div className="auth-card__logo">
+          <img src={logo} alt="Tigers Gym Logo" className="logo-img" style={{ height: "90px" }} />
         </div>
 
-        {/* Divider */}
         <div className="auth-card__divider" aria-hidden="true" />
 
         {/* Heading */}
         <div className="auth-card__header">
           <h1 className="auth-card__heading">Reset Password</h1>
           <p className="auth-card__subtitle">
-            Create a new password for your account.
+            Create a new secure password for your admin account.
           </p>
         </div>
 
         {/* Form */}
         <form className="auth-form" onSubmit={handleSubmit} noValidate>
-          {/* New Password field */}
           <div className="auth-form__group">
             <label htmlFor="rp-new-password" className="auth-form__label">
               New Password
@@ -163,18 +130,16 @@ export default function ResetPassword() {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 autoComplete="new-password"
-                aria-label="New password"
                 required
               />
             </div>
             {newPassword.length > 0 && (
               <p className="auth-form__hint">
-                Use 8+ characters with letters, numbers and symbols.
+                Use 6+ characters with numbers and letters.
               </p>
             )}
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="auth-btn auth-btn--primary auth-btn--full"
@@ -190,16 +155,13 @@ export default function ResetPassword() {
             )}
           </button>
 
-          {/* Security note */}
           <p className="auth-form__security">
             <FiShield className="auth-form__security-icon" aria-hidden="true" />
-            Authorized access only. This portal is intended for Tiger's Gym
-            management.
+            Authorized access only. Intended for Tigers Gym management.
           </p>
         </form>
       </div>
 
-      {/* Back to Login */}
       <Link
         to="/admin/login"
         className="auth-page__back"

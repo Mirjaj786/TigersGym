@@ -1,5 +1,4 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
 import {
   FaTrophy,
@@ -15,6 +14,11 @@ import {
   FaBolt,
 } from "react-icons/fa";
 import "./Gallery.css";
+import {
+  getGalleryPhotos,
+  getChampions,
+  getRecords,
+} from "../../services/api";
 
 /* ─── Static Data ─────────────────────────────────────────── */
 
@@ -225,20 +229,28 @@ const highlights = [
 /* ─── Component ───────────────────────────────────────────── */
 
 export default function Gallery() {
-  const [photosList, setPhotosList] = React.useState(() => {
-    const saved = localStorage.getItem("tigers_gym_photos");
-    return saved ? JSON.parse(saved) : galleryImages;
-  });
+  const [photosList, setPhotosList] = React.useState(galleryImages);
+  const [championsList, setChampionsList] = React.useState(champions);
+  const [recordsList, setRecordsList] = React.useState(records);
 
-  const [championsList, setChampionsList] = React.useState(() => {
-    const saved = localStorage.getItem("tigers_gym_champions");
-    return saved ? JSON.parse(saved) : champions;
-  });
+  React.useEffect(() => {
+    const fetchLiveGallery = async () => {
+      try {
+        const [resP, resC, resR] = await Promise.all([
+          getGalleryPhotos().catch(() => ({ data: null })),
+          getChampions().catch(() => ({ data: null })),
+          getRecords().catch(() => ({ data: null })),
+        ]);
 
-  const [recordsList, setRecordsList] = React.useState(() => {
-    const saved = localStorage.getItem("tigers_gym_records");
-    return saved ? JSON.parse(saved) : records;
-  });
+        if (resP?.data && resP.data.length > 0) setPhotosList(resP.data);
+        if (resC?.data && resC.data.length > 0) setChampionsList(resC.data);
+        if (resR?.data && resR.data.length > 0) setRecordsList(resR.data);
+      } catch (err) {
+        console.log("Using fallback initial data");
+      }
+    };
+    fetchLiveGallery();
+  }, []);
   return (
     <main className="gallery-page">
 

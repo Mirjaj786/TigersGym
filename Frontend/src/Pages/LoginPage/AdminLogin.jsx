@@ -9,17 +9,17 @@ import {
   FiShield,
 } from "react-icons/fi";
 import "./AdminLogin.css";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { adminLogin } from "../../services/api";
+import { useAuth } from "../../Context/AuthContext";
 import logo from "../../assets/logo.jpeg";
-
-/* ─── AdminLogin Component ────────────────────────────────── */
 
 export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { fetchAuthUser } = useAuth();
 
   const [data, setData] = useState({
     email: "",
@@ -28,7 +28,6 @@ export default function AdminLogin() {
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-
     setData((prev) => ({
       ...prev,
       [name]: value,
@@ -37,23 +36,23 @@ export default function AdminLogin() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-    try {
-      const res = await axios.post("http://localhost:8000/user/login", data);
 
-      toast.success("Login Successful");
-      localStorage.setItem("token", res.data.token || "demo_admin_jwt_token");
-      navigate("/admin/dashboard");
-    } catch (error) {
-      // Demo fallback if backend server is not running locally
-      if (data.email && data.password) {
-        toast.success("Logged in as Admin (Demo Mode)");
-        localStorage.setItem("token", "demo_admin_jwt_token_tigers_gym");
+    try {
+      const res = await adminLogin(data);
+      if (res?.token) {
+        toast.success(res.message || "Login Successful!");
+        localStorage.setItem("token", res.token);
+        await fetchAuthUser();
         navigate("/admin/dashboard");
       } else {
-        toast.error(error.response?.data?.message || "Login Failed");
+        toast.error("Invalid response from server");
       }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Login Failed: Please check your credentials or internet connection."
+      );
     } finally {
       setLoading(false);
     }
@@ -61,36 +60,34 @@ export default function AdminLogin() {
 
   return (
     <div className="admin-login">
-      {/* Full-screen background image with dark overlay */}
+      {/* Background image & overlay */}
       <div className="admin-login__bg" aria-hidden="true" />
       <div className="admin-login__overlay" aria-hidden="true" />
 
-      {/* Centered login card */}
+      {/* Login Card */}
       <div className="admin-login__card" role="main">
-        {/* ── Logo ── */}
-        <div className="admin-login__logo logo" aria-label="FITZONE">
+        {/* Logo */}
+        <div className="admin-login__logo logo" aria-label="Tigers Gym">
           <img
             src={logo}
-            alt="logo"
+            alt="Tigers Gym Logo"
             className="logo-img"
             style={{ height: "90px" }}
           />
         </div>
 
-        {/* ── Divider ── */}
         <div className="admin-login__divider" aria-hidden="true" />
 
-        {/* ── Heading ── */}
         <div className="admin-login__header">
           <h1 className="admin-login__heading">Welcome Back</h1>
           <p className="admin-login__subtitle">
-            Sign in to manage Tigers Gym.
+            Sign in to manage Tigers Gym Admin Portal.
           </p>
         </div>
 
-        {/* ── Form ── */}
+        {/* Form */}
         <form className="admin-login__form" onSubmit={handleSubmit}>
-          {/* Email field */}
+          {/* Email */}
           <div className="admin-form__group">
             <label htmlFor="admin-email" className="admin-form__label">
               Email Address
@@ -104,7 +101,7 @@ export default function AdminLogin() {
                 name="email"
                 type="email"
                 className="admin-form__input"
-                placeholder="Enter Your Email!"
+                placeholder="Enter Your Email"
                 value={data.email}
                 onChange={onChangeHandler}
                 autoComplete="email"
@@ -113,7 +110,7 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          {/* Password field */}
+          {/* Password */}
           <div className="admin-form__group">
             <label htmlFor="admin-password" className="admin-form__label">
               Password
@@ -131,7 +128,6 @@ export default function AdminLogin() {
                 value={data.password}
                 onChange={onChangeHandler}
                 autoComplete="current-password"
-                aria-label="Password"
                 required
               />
               <button
@@ -145,7 +141,7 @@ export default function AdminLogin() {
             </div>
           </div>
 
-          {/* Remember Me + Forgot Password row */}
+          {/* Remember Me / Forgot Pass */}
           <div className="admin-form__meta">
             <label className="admin-form__remember">
               <input
@@ -153,7 +149,6 @@ export default function AdminLogin() {
                 className="admin-form__checkbox"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
-                aria-label="Remember me"
               />
               <span className="admin-form__remember-label">Remember Me</span>
             </label>
@@ -179,21 +174,15 @@ export default function AdminLogin() {
             )}
           </button>
 
-          {/* Security note */}
           <p className="admin-form__security">
-            <FiShield
-              className="admin-form__security-icon"
-              aria-hidden="true"
-            />
-            Authorized access only. This portal is intended for TigersGym
-            management.
+            <FiShield className="admin-form__security-icon" aria-hidden="true" />
+            Authorized access only. Intended for Tigers Gym management.
           </p>
         </form>
       </div>
 
-      {/* Back to website link — sits outside the card */}
       <Link to="/" className="admin-login__back" aria-label="Back to website">
-        <FiArrowLeft className="admin-login__back-icon"/>
+        <FiArrowLeft className="admin-login__back-icon" />
         Back to Website
       </Link>
     </div>

@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import "./ForgotPass.css";
 import logo from "../../assets/logo.jpeg";
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -19,27 +21,16 @@ export default function ForgotPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (loading) return;
 
     try {
       setLoading(true);
-
-      const res = await axios.post(
-        "http://localhost:8000/user/forget-password",
-        {
-          email,
-        },
-      );
-
-      toast.success(
-        res.data.message || "Password reset link sent successfully",
-      );
-
+      const res = await axios.post(`${API_BASE}/user/forget-password`, { email });
+      toast.success(res.data.message || "Password reset link sent successfully!");
       setSubmitted(true);
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Failed to send password reset link",
+        error.response?.data?.message || "Failed to send password reset link."
       );
     } finally {
       setLoading(false);
@@ -51,20 +42,11 @@ export default function ForgotPassword() {
 
     try {
       setLoading(true);
-
-      const res = await axios.post(
-        "http://localhost:8000/user/forget-password",
-        {
-          email,
-        },
-      );
-
-      toast.success(
-        res.data.message || "Password reset link sent successfully",
-      );
+      const res = await axios.post(`${API_BASE}/user/forget-password`, { email });
+      toast.success(res.data.message || "Password reset link resent successfully!");
     } catch (error) {
       toast.error(
-        error.response?.data?.message || "Failed to resend password reset link",
+        error.response?.data?.message || "Failed to resend password reset link."
       );
     } finally {
       setLoading(false);
@@ -74,27 +56,25 @@ export default function ForgotPassword() {
   return (
     <div className="forgot-page">
       {/* Background */}
-      <div className="forgot-page__bg"></div>
-      <div className="forgot-page__overlay"></div>
+      <div className="forgot-page__bg" />
+      <div className="forgot-page__overlay" />
 
       {/* Card */}
       <div className="forgot-card">
         {/* Logo */}
-        <div className="forgot-card__logo logo-div">
-          <img src={logo} alt="logo" className="logo" />
+        <div className="forgot-card__logo">
+          <img src={logo} alt="Tigers Gym Logo" className="logo-img" style={{ height: "90px" }} />
         </div>
 
-        <div className="forgot-card__divider"></div>
+        <div className="forgot-card__divider" />
 
         {!submitted ? (
           <>
             {/* Header */}
             <div className="forgot-card__header">
               <h1>Forgot Password</h1>
-
               <p>
-                Enter your registered email address and we'll send you a secure
-                password reset link.
+                Enter your registered admin email address and we'll send you a secure password reset link.
               </p>
             </div>
 
@@ -102,10 +82,8 @@ export default function ForgotPassword() {
             <form onSubmit={handleSubmit} className="forgot-form">
               <div className="forgot-form__group">
                 <label>Email Address</label>
-
                 <div className="forgot-form__input-wrap">
                   <FiMail className="forgot-form__icon" />
-
                   <input
                     type="email"
                     placeholder="Enter your registered email"
@@ -132,8 +110,8 @@ export default function ForgotPassword() {
               </button>
 
               <p className="forgot-security">
-                <FiShield />
-                Only authorized administrators can access this portal.
+                <FiShield className="forgot-security-icon" />
+                Authorized administrators access only.
               </p>
             </form>
           </>
@@ -144,8 +122,7 @@ export default function ForgotPassword() {
             <h2>Check Your Email</h2>
 
             <p>
-              We've sent a password reset link to
-              <strong> {email}</strong>.
+              We've sent a password reset link to <strong>{email}</strong>.
             </p>
 
             <p className="forgot-success__note">
@@ -163,10 +140,7 @@ export default function ForgotPassword() {
                 Resend Link
               </button>
 
-              <Link
-                to="/admin/login"
-                className="forgot-btn forgot-btn--primary"
-              >
+              <Link to="/admin/login" className="forgot-btn forgot-btn--primary">
                 Back To Login
               </Link>
             </div>

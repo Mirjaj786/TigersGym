@@ -81,6 +81,7 @@
   color: #ffffff;
   border-color: #ff3b3f;
 }
+
 .btn--primary:hover {
   background-color: #e0282c;
   border-color: #e0282c;
@@ -92,6 +93,7 @@
   color: #ffffff;
   border-color: #ffffff;
 }
+
 .btn--ghost:hover {
   background-color: #ffffff;
   color: #111111;
@@ -162,6 +164,7 @@
   text-decoration: none;
   transition: color 0.2s ease;
 }
+
 .gal-hero__crumb-link:hover {
   color: #ff3b3f;
 }
@@ -442,7 +445,8 @@
 .record-card__exercise-icon {
   font-size: 1.8rem;
   color: #ff3b3f;
-  margin-top: 20px; /* space below the badge */
+  margin-top: 20px;
+  /* space below the badge */
 }
 
 /* Member photo */
@@ -597,73 +601,67 @@
 
 /* ── Tablet: ≤ 1024px ───────────────────────────────────────── */
 @media (max-width: 1024px) {
-  /* All 4-column grids → 3 columns */
   .gallery-grid,
   .champions-grid,
   .records-grid,
   .highlights-grid {
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 }
 
 /* ── Tablet narrow / Mobile: ≤ 768px ───────────────────────── */
 @media (max-width: 768px) {
-  /* 3-col grids → 2 columns */
   .gallery-grid,
   .champions-grid,
   .records-grid,
   .highlights-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 
-  /* Gallery card height reduced */
   .gallery-card {
-    height: 180px;
+    height: 200px;
   }
 }
 
-/* ── Mobile: ≤ 480px ────────────────────────────────────────── */
-@media (max-width: 480px) {
-  /* Sections tightened */
+/* ── Mobile: ≤ 576px ────────────────────────────────────────── */
+@media (max-width: 576px) {
   .gym-gallery,
   .champions,
   .records,
   .highlights,
   .gal-cta {
-    padding: 64px 0;
+    padding: 48px 0;
   }
 
   .section-header {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
-  /* Still 2 columns on mobile as requested */
   .gallery-grid,
   .champions-grid,
   .records-grid,
   .highlights-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
   }
 
-  /* Slightly smaller gallery card on very small screens */
   .gallery-card {
-    height: 150px;
+    height: 220px;
   }
 
-  /* Champion card body tighter */
   .champion-card__stats {
     flex-direction: column;
     gap: 8px;
   }
 
-  /* CTA buttons stack */
   .gal-cta__buttons {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
   .gal-hero {
-    min-height: 340px;
+    min-height: 300px;
   }
 }

@@ -5,225 +5,275 @@ import {
   FaMedal,
   FaPlus,
   FaTrash,
-  FaEdit,
   FaFilter,
   FaSearch,
   FaCalendarAlt,
   FaDumbbell,
-  FaBolt,
-  FaFire,
-  FaRunning,
-  FaHeartbeat,
-  FaLeaf,
-  FaCheck,
+  FaUpload,
   FaTimes,
+  FaSpinner,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
-import axios from "axios";
+import {
+  getGalleryPhotos,
+  uploadGalleryPhoto,
+  deleteGalleryPhoto,
+  getChampions,
+  uploadChampion,
+  deleteChampion,
+  getRecords,
+  uploadRecord,
+  deleteRecord,
+} from "../../services/api";
 import "./ManageGallery.css";
-
-/* Initial Static Data Fallbacks */
-const initialGymPhotos = [
-  { id: 1, title: "Strength Zone", category: "Strength Zone", imageUrl: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" },
-  { id: 2, title: "Personal Training", category: "Functional Zone", imageUrl: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80" },
-  { id: 3, title: "Cardio Area", category: "Cardio Area", imageUrl: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" },
-  { id: 4, title: "Free Weights", category: "Weight Room", imageUrl: "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=600&q=80" },
-  { id: 5, title: "CrossFit Floor", category: "CrossFit Floor", imageUrl: "https://images.unsplash.com/photo-1581009137042-c552e485697a?w=600&q=80" },
-  { id: 6, title: "Yoga Studio", category: "Yoga Studio", imageUrl: "https://images.unsplash.com/photo-1576678927484-cc907957088c?w=600&q=80" },
-];
-
-const initialChampions = [
-  { id: 1, name: "Arjun Mehta", month: "January", year: "2025", attendance: "30 / 30 Days", prize: "Gold Medal", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=80" },
-  { id: 2, name: "Priya Sharma", month: "February", year: "2025", attendance: "28 / 28 Days", prize: "Gold Medal", image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&q=80" },
-  { id: 3, name: "Rohit Das", month: "March", year: "2025", attendance: "31 / 31 Days", prize: "Gold Medal", image: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=300&q=80" },
-  { id: 4, name: "Sneha Patel", month: "April", year: "2025", attendance: "29 / 30 Days", prize: "Gold Medal", image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=300&q=80" },
-];
-
-const initialRecords = [
-  { id: 1, member: "Arjun Mehta", recordType: "Deadlift", recordValue: "220 KG", date: "12 Mar 2025", image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&q=80" },
-  { id: 2, member: "Vikram Singh", recordType: "Bench Press", recordValue: "160 KG", date: "5 Apr 2025", image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=300&q=80" },
-  { id: 3, member: "Rohit Das", recordType: "Push-Ups", recordValue: "120 Reps", date: "19 Feb 2025", image: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=300&q=80" },
-  { id: 4, member: "Priya Sharma", recordType: "Pull-Ups", recordValue: "42 Reps", date: "8 Jan 2025", image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300&q=80" },
-];
 
 export default function ManageGallery() {
   const [activeTab, setActiveTab] = useState("photos"); // photos | champions | records
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
 
-  // Local storage state management for instant persistence
-  const [photos, setPhotos] = useState(() => {
-    const saved = localStorage.getItem("tigers_gym_photos");
-    return saved ? JSON.parse(saved) : initialGymPhotos;
-  });
-
-  const [champions, setChampions] = useState(() => {
-    const saved = localStorage.getItem("tigers_gym_champions");
-    return saved ? JSON.parse(saved) : initialChampions;
-  });
-
-  const [records, setRecords] = useState(() => {
-    const saved = localStorage.getItem("tigers_gym_records");
-    return saved ? JSON.parse(saved) : initialRecords;
-  });
+  const [photos, setPhotos] = useState([]);
+  const [champions, setChampions] = useState([]);
+  const [records, setRecords] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   // Modal States
   const [showPhotoModal, setShowPhotoModal] = useState(false);
   const [showChampModal, setShowChampModal] = useState(false);
   const [showRecordModal, setShowRecordModal] = useState(false);
 
-  const [editingItem, setEditingItem] = useState(null);
+  // Image File & Preview States
+  const [photoFile, setPhotoFile] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState("");
+  const [photoForm, setPhotoForm] = useState({ title: "", category: "Strength Zone" });
 
-  // Form inputs
-  const [photoForm, setPhotoForm] = useState({ title: "", category: "Strength Zone", imageUrl: "" });
-  const [champForm, setChampForm] = useState({ name: "", month: "January", year: "2025", attendance: "30 / 30 Days", prize: "Gold Medal", image: "" });
-  const [recordForm, setRecordForm] = useState({ member: "", recordType: "Deadlift", recordValue: "", date: "", image: "" });
+  const [champFile, setChampFile] = useState(null);
+  const [champPreview, setChampPreview] = useState("");
+  const [champForm, setChampForm] = useState({ name: "", month: "January", year: "2025", attendance: "30 / 30 Days", prize: "Gold Medal" });
 
-  useEffect(() => {
-    localStorage.setItem("tigers_gym_photos", JSON.stringify(photos));
-  }, [photos]);
+  const [recordFile, setRecordFile] = useState(null);
+  const [recordPreview, setRecordPreview] = useState("");
+  const [recordForm, setRecordForm] = useState({ member: "", recordType: "Deadlift", recordValue: "", date: "" });
 
-  useEffect(() => {
-    localStorage.setItem("tigers_gym_champions", JSON.stringify(champions));
-  }, [champions]);
+  // Fetch initial live data from backend
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const [resPhotos, resChamps, resRecords] = await Promise.all([
+        getGalleryPhotos().catch(() => ({ data: [] })),
+        getChampions().catch(() => ({ data: [] })),
+        getRecords().catch(() => ({ data: [] })),
+      ]);
 
-  useEffect(() => {
-    localStorage.setItem("tigers_gym_records", JSON.stringify(records));
-  }, [records]);
-
-  /* ── 1. Photo Handlers ── */
-  const handleAddPhoto = (e) => {
-    e.preventDefault();
-    if (!photoForm.title || !photoForm.imageUrl) {
-      toast.error("Please enter Title and Image URL!");
-      return;
+      if (resPhotos.data) setPhotos(resPhotos.data);
+      if (resChamps.data) setChampions(resChamps.data);
+      if (resRecords.data) setRecords(resRecords.data);
+    } catch (err) {
+      toast.error("Failed to load live gallery data");
+    } finally {
+      setLoading(false);
     }
-    const newPhoto = {
-      id: Date.now(),
-      title: photoForm.title,
-      category: photoForm.category,
-      imageUrl: photoForm.imageUrl,
-    };
-    setPhotos([newPhoto, ...photos]);
-    toast.success("Gym Photo added successfully!");
-    setPhotoForm({ title: "", category: "Strength Zone", imageUrl: "" });
-    setShowPhotoModal(false);
   };
 
-  const handleDeletePhoto = (id) => {
-    if (window.confirm("Are you sure you want to delete this gym photo?")) {
-      setPhotos(photos.filter((p) => p.id !== id));
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // File Selection & Validation (Image only, Max 5MB)
+  const handleFileChange = (e, setFile, setPreview) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Security check: mime type
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Security Alert: Only JPG, JPEG, PNG, and WEBP image files are allowed!");
+      return;
+    }
+
+    // Security check: file size 5MB
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File is too large! Maximum image size is 5MB.");
+      return;
+    }
+
+    setFile(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
+  /* ── 1. Gym Photo Submit ── */
+  const handleAddPhoto = async (e) => {
+    e.preventDefault();
+    if (!photoForm.title || !photoFile) {
+      toast.error("Please enter Title and select an Image File!");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append("title", photoForm.title);
+      formData.append("category", photoForm.category);
+      formData.append("image", photoFile);
+
+      const res = await uploadGalleryPhoto(formData);
+      toast.success(res.message || "Photo uploaded to Cloudinary & saved!");
+      setPhotos([res.data, ...photos]);
+      setShowPhotoModal(false);
+      setPhotoForm({ title: "", category: "Strength Zone" });
+      setPhotoFile(null);
+      setPhotoPreview("");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to upload image to Cloudinary");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeletePhoto = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this gym photo?")) return;
+    try {
+      await deleteGalleryPhoto(id);
+      setPhotos(photos.filter((p) => p._id !== id && p.id !== id));
       toast.success("Photo deleted successfully!");
+    } catch (err) {
+      toast.error("Failed to delete photo");
     }
   };
 
-  /* ── 2. Champion Handlers ── */
-  const handleAddChamp = (e) => {
+  /* ── 2. Champion Submit ── */
+  const handleAddChamp = async (e) => {
     e.preventDefault();
-    if (!champForm.name || !champForm.image) {
-      toast.error("Please fill Name and Image URL!");
+    if (!champForm.name || !champFile) {
+      toast.error("Please enter Champion Name and select an Image File!");
       return;
     }
 
-    if (editingItem) {
-      setChampions(
-        champions.map((c) => (c.id === editingItem.id ? { ...c, ...champForm } : c))
-      );
-      toast.success("Champion updated!");
-      setEditingItem(null);
-    } else {
-      const newChamp = { id: Date.now(), ...champForm };
-      setChampions([newChamp, ...champions]);
-      toast.success("New Champion added!");
+    setSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append("name", champForm.name);
+      formData.append("month", champForm.month);
+      formData.append("year", champForm.year);
+      formData.append("attendance", champForm.attendance);
+      formData.append("prize", champForm.prize);
+      formData.append("image", champFile);
+
+      const res = await uploadChampion(formData);
+      toast.success(res.message || "Champion saved to Cloudinary!");
+      setChampions([res.data, ...champions]);
+      setShowChampModal(false);
+      setChampForm({ name: "", month: "January", year: "2025", attendance: "30 / 30 Days", prize: "Gold Medal" });
+      setChampFile(null);
+      setChampPreview("");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to upload champion photo");
+    } finally {
+      setSubmitting(false);
     }
-    setChampForm({ name: "", month: "January", year: "2025", attendance: "30 / 30 Days", prize: "Gold Medal", image: "" });
-    setShowChampModal(false);
   };
 
-  const handleDeleteChamp = (id) => {
-    if (window.confirm("Delete this champion record?")) {
-      setChampions(champions.filter((c) => c.id !== id));
+  const handleDeleteChamp = async (id) => {
+    if (!window.confirm("Delete this champion record?")) return;
+    try {
+      await deleteChampion(id);
+      setChampions(champions.filter((c) => c._id !== id && c.id !== id));
       toast.success("Champion deleted!");
+    } catch (err) {
+      toast.error("Failed to delete champion");
     }
   };
 
-  /* ── 3. Record Handlers ── */
-  const handleAddRecord = (e) => {
+  /* ── 3. Record Holder Submit ── */
+  const handleAddRecord = async (e) => {
     e.preventDefault();
-    if (!recordForm.member || !recordForm.recordValue || !recordForm.image) {
-      toast.error("Please fill Member Name, Record Value & Image URL!");
+    if (!recordForm.member || !recordForm.recordValue || !recordFile) {
+      toast.error("Please enter Member Name, Record Value and select an Image File!");
       return;
     }
 
-    if (editingItem) {
-      setRecords(
-        records.map((r) => (r.id === editingItem.id ? { ...r, ...recordForm } : r))
-      );
-      toast.success("Record holder updated!");
-      setEditingItem(null);
-    } else {
-      const newRecord = { id: Date.now(), ...recordForm };
-      setRecords([newRecord, ...records]);
-      toast.success("New Gym Record added!");
+    setSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append("member", recordForm.member);
+      formData.append("recordType", recordForm.recordType);
+      formData.append("recordValue", recordForm.recordValue);
+      formData.append("date", recordForm.date || new Date().toLocaleDateString("en-IN"));
+      formData.append("image", recordFile);
+
+      const res = await uploadRecord(formData);
+      toast.success(res.message || "Gym record saved to Cloudinary!");
+      setRecords([res.data, ...records]);
+      setShowRecordModal(false);
+      setRecordForm({ member: "", recordType: "Deadlift", recordValue: "", date: "" });
+      setRecordFile(null);
+      setRecordPreview("");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to upload record photo");
+    } finally {
+      setSubmitting(false);
     }
-    setRecordForm({ member: "", recordType: "Deadlift", recordValue: "", date: new Date().toLocaleDateString(), image: "" });
-    setShowRecordModal(false);
   };
 
-  const handleDeleteRecord = (id) => {
-    if (window.confirm("Delete this gym record?")) {
-      setRecords(records.filter((r) => r.id !== id));
+  const handleDeleteRecord = async (id) => {
+    if (!window.confirm("Delete this gym record?")) return;
+    try {
+      await deleteRecord(id);
+      setRecords(records.filter((r) => r._id !== id && r.id !== id));
       toast.success("Record deleted!");
+    } catch (err) {
+      toast.error("Failed to delete record");
     }
   };
 
-  /* Filtered Lists */
+  /* Filtered Data */
   const filteredPhotos = photos.filter((p) => {
     const matchesCategory = categoryFilter === "All" || p.category === categoryFilter;
-    const matchesSearch = p.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = p.title?.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   const filteredChampions = champions.filter((c) =>
-    c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    c.month.toLowerCase().includes(searchQuery.toLowerCase())
+    c.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.month?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const filteredRecords = records.filter((r) =>
-    r.member.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    r.recordType.toLowerCase().includes(searchQuery.toLowerCase())
+    r.member?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    r.recordType?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="manage-gallery-page">
-      {/* ── Page Header ── */}
+      {/* Page Header */}
       <div className="gallery-header">
-        <div className="gallery-header__left">
+        <div>
           <h1 className="gallery-header__title">Gallery Management</h1>
           <p className="gallery-header__sub">
-            Manage your Gym Tour Photos, Wall of Champions, and Hall of Records displayed on the public website.
+            Direct Cloudinary Image Upload & MongoDB Synchronization for Tigers Gym Website.
           </p>
         </div>
         <div className="gallery-header__actions">
           {activeTab === "photos" && (
             <button className="btn-mgr btn-mgr--gold" onClick={() => setShowPhotoModal(true)}>
-              <FaPlus /> Add Gym Photo
+              <FaUpload /> Upload Gym Photo
             </button>
           )}
           {activeTab === "champions" && (
-            <button className="btn-mgr btn-mgr--gold" onClick={() => { setEditingItem(null); setShowChampModal(true); }}>
-              <FaPlus /> Add Champion
+            <button className="btn-mgr btn-mgr--gold" onClick={() => setShowChampModal(true)}>
+              <FaUpload /> Upload Champion
             </button>
           )}
           {activeTab === "records" && (
-            <button className="btn-mgr btn-mgr--gold" onClick={() => { setEditingItem(null); setShowRecordModal(true); }}>
-              <FaPlus /> Add Gym Record
+            <button className="btn-mgr btn-mgr--gold" onClick={() => setShowRecordModal(true)}>
+              <FaUpload /> Upload Gym Record
             </button>
           )}
         </div>
       </div>
 
-      {/* ── Tabs Navigation ── */}
+      {/* Tabs */}
       <div className="gallery-tabs">
         <button
           className={`tab-btn ${activeTab === "photos" ? "tab-btn--active" : ""}`}
@@ -245,7 +295,7 @@ export default function ManageGallery() {
         </button>
       </div>
 
-      {/* ── Controls Bar (Search & Filter) ── */}
+      {/* Controls */}
       <div className="gallery-controls">
         <div className="controls-search">
           <FaSearch className="search-icon" />
@@ -278,138 +328,124 @@ export default function ManageGallery() {
         )}
       </div>
 
-      {/* ── TAB 1: GYM PHOTOS ── */}
-      {activeTab === "photos" && (
-        <div className="gallery-photos-grid">
-          {filteredPhotos.map((photo) => (
-            <div key={photo.id} className="photo-card">
-              <div className="photo-card__img-wrap">
-                <img src={photo.imageUrl} alt={photo.title} className="photo-card__img" />
-                <span className="photo-card__category">{photo.category}</span>
-                <div className="photo-card__overlay">
-                  <button
-                    className="action-btn action-btn--danger"
-                    onClick={() => handleDeletePhoto(photo.id)}
-                    title="Delete Photo"
-                  >
-                    <FaTrash /> Delete
-                  </button>
-                </div>
-              </div>
-              <div className="photo-card__body">
-                <h3 className="photo-card__title">{photo.title}</h3>
-              </div>
-            </div>
-          ))}
-          {filteredPhotos.length === 0 && (
-            <div className="empty-state">No gym photos found. Click 'Add Gym Photo' to upload!</div>
-          )}
+      {loading ? (
+        <div className="loading-state">
+          <FaSpinner className="spinner-icon" /> Fetching live data from backend...
         </div>
-      )}
-
-      {/* ── TAB 2: WALL OF CHAMPIONS ── */}
-      {activeTab === "champions" && (
-        <div className="champions-mgr-grid">
-          {filteredChampions.map((champ) => (
-            <div key={champ.id} className="champ-card">
-              <div className="champ-card__top">
-                <span className="champ-badge">
-                  <FaTrophy /> Champion
-                </span>
-                <div className="champ-card__actions">
-                  <button
-                    className="champ-icon-btn champ-icon-btn--edit"
-                    onClick={() => {
-                      setEditingItem(champ);
-                      setChampForm(champ);
-                      setShowChampModal(true);
-                    }}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    className="champ-icon-btn champ-icon-btn--delete"
-                    onClick={() => handleDeleteChamp(champ.id)}
-                  >
-                    <FaTrash />
-                  </button>
-                </div>
-              </div>
-
-              <img src={champ.image} alt={champ.name} className="champ-card__img" />
-
-              <div className="champ-card__info">
-                <h3 className="champ-card__name">{champ.name}</h3>
-                <p className="champ-card__date">
-                  <FaCalendarAlt /> {champ.month} {champ.year}
-                </p>
-                <div className="champ-card__stats">
-                  <div className="stat-pill">
-                    <span className="stat-pill__label">Attendance</span>
-                    <span className="stat-pill__val">{champ.attendance}</span>
+      ) : (
+        <>
+          {/* ── TAB 1: GYM PHOTOS ── */}
+          {activeTab === "photos" && (
+            <div className="gallery-photos-grid">
+              {filteredPhotos.map((photo) => (
+                <div key={photo._id || photo.id} className="photo-card">
+                  <div className="photo-card__img-wrap">
+                    <img src={photo.imageUrl || photo.image} alt={photo.title} className="photo-card__img" />
+                    <span className="photo-card__category">{photo.category}</span>
+                    <div className="photo-card__overlay">
+                      <button
+                        className="action-btn action-btn--danger"
+                        onClick={() => handleDeletePhoto(photo._id || photo.id)}
+                        title="Delete Photo"
+                      >
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
                   </div>
-                  <div className="stat-pill">
-                    <span className="stat-pill__label">Prize</span>
-                    <span className="stat-pill__val text-gold">
-                      <FaMedal /> {champ.prize}
+                  <div className="photo-card__body">
+                    <h3 className="photo-card__title">{photo.title}</h3>
+                  </div>
+                </div>
+              ))}
+              {filteredPhotos.length === 0 && (
+                <div className="empty-state">No gym photos found. Click 'Upload Gym Photo' to add one!</div>
+              )}
+            </div>
+          )}
+
+          {/* ── TAB 2: WALL OF CHAMPIONS ── */}
+          {activeTab === "champions" && (
+            <div className="champions-mgr-grid">
+              {filteredChampions.map((champ) => (
+                <div key={champ._id || champ.id} className="champ-card">
+                  <div className="champ-card__top">
+                    <span className="champ-badge">
+                      <FaTrophy /> Champion
                     </span>
+                    <button
+                      className="champ-icon-btn champ-icon-btn--delete"
+                      onClick={() => handleDeleteChamp(champ._id || champ.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </div>
+
+                  <img src={champ.image} alt={champ.name} className="champ-card__img" />
+
+                  <div className="champ-card__info">
+                    <h3 className="champ-card__name">{champ.name}</h3>
+                    <p className="champ-card__date">
+                      <FaCalendarAlt /> {champ.month} {champ.year}
+                    </p>
+                    <div className="champ-card__stats">
+                      <div className="stat-pill">
+                        <span className="stat-pill__label">Attendance</span>
+                        <span className="stat-pill__val">{champ.attendance}</span>
+                      </div>
+                      <div className="stat-pill">
+                        <span className="stat-pill__label">Prize</span>
+                        <span className="stat-pill__val text-gold">
+                          <FaMedal /> {champ.prize}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
+              {filteredChampions.length === 0 && (
+                <div className="empty-state">No champions found. Click 'Upload Champion' to add one!</div>
+              )}
             </div>
-          ))}
-          {filteredChampions.length === 0 && (
-            <div className="empty-state">No champions recorded yet. Click 'Add Champion' to add one!</div>
           )}
-        </div>
-      )}
 
-      {/* ── TAB 3: HALL OF RECORDS ── */}
-      {activeTab === "records" && (
-        <div className="records-mgr-grid">
-          {filteredRecords.map((rec) => (
-            <div key={rec.id} className="rec-card">
-              <div className="rec-card__badge">Gym Record Holder</div>
-              <img src={rec.image} alt={rec.member} className="rec-card__img" />
-              <div className="rec-card__body">
-                <span className="rec-card__type">{rec.recordType}</span>
-                <h3 className="rec-card__val">{rec.recordValue}</h3>
-                <p className="rec-card__name">{rec.member}</p>
-                <span className="rec-card__date">{rec.date}</span>
+          {/* ── TAB 3: HALL OF RECORDS ── */}
+          {activeTab === "records" && (
+            <div className="records-mgr-grid">
+              {filteredRecords.map((rec) => (
+                <div key={rec._id || rec.id} className="rec-card">
+                  <div className="rec-card__badge">Gym Record Holder</div>
+                  <img src={rec.image} alt={rec.member} className="rec-card__img" />
+                  <div className="rec-card__body">
+                    <span className="rec-card__type">{rec.recordType}</span>
+                    <h3 className="rec-card__val">{rec.recordValue}</h3>
+                    <p className="rec-card__name">{rec.member}</p>
+                    <span className="rec-card__date">{rec.date}</span>
 
-                <div className="rec-card__actions">
-                  <button
-                    className="btn-mgr-sm btn-mgr-sm--edit"
-                    onClick={() => {
-                      setEditingItem(rec);
-                      setRecordForm(rec);
-                      setShowRecordModal(true);
-                    }}
-                  >
-                    <FaEdit /> Edit
-                  </button>
-                  <button
-                    className="btn-mgr-sm btn-mgr-sm--delete"
-                    onClick={() => handleDeleteRecord(rec.id)}
-                  >
-                    <FaTrash /> Delete
-                  </button>
+                    <div className="rec-card__actions">
+                      <button
+                        className="btn-mgr-sm btn-mgr-sm--delete"
+                        onClick={() => handleDeleteRecord(rec._id || rec.id)}
+                      >
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
+              {filteredRecords.length === 0 && (
+                <div className="empty-state">No gym records found. Click 'Upload Gym Record' to register PRs!</div>
+              )}
             </div>
-          ))}
-          {filteredRecords.length === 0 && (
-            <div className="empty-state">No records added yet. Click 'Add Gym Record' to register PRs!</div>
           )}
-        </div>
+        </>
       )}
 
-      {/* ── MODAL 1: ADD GYM PHOTO ── */}
+      {/* ── MODAL 1: UPLOAD GYM PHOTO (File Input) ── */}
       {showPhotoModal && (
         <div className="modal-backdrop" onClick={() => setShowPhotoModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>Add Gym Photo</h3>
+              <h3>Upload Gym Photo to Cloudinary</h3>
               <button className="modal-close" onClick={() => setShowPhotoModal(false)}>
                 <FaTimes />
               </button>
@@ -419,14 +455,14 @@ export default function ManageGallery() {
                 <label>Photo Title *</label>
                 <input
                   type="text"
-                  placeholder="e.g. Heavy Weight Bench Section"
+                  placeholder="e.g. Heavy Dumbbell Zone"
                   value={photoForm.title}
                   onChange={(e) => setPhotoForm({ ...photoForm, title: e.target.value })}
                   required
                 />
               </div>
               <div className="form-group">
-                <label>Gym Category</label>
+                <label>Category</label>
                 <select
                   value={photoForm.category}
                   onChange={(e) => setPhotoForm({ ...photoForm, category: e.target.value })}
@@ -439,22 +475,31 @@ export default function ManageGallery() {
                   <option value="Functional Zone">Functional Zone</option>
                 </select>
               </div>
+
+              {/* Secure File Input */}
               <div className="form-group">
-                <label>Image URL *</label>
+                <label>Select Image File (JPG, PNG, WEBP, max 5MB) *</label>
                 <input
-                  type="url"
-                  placeholder="https://images.unsplash.com/..."
-                  value={photoForm.imageUrl}
-                  onChange={(e) => setPhotoForm({ ...photoForm, imageUrl: e.target.value })}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={(e) => handleFileChange(e, setPhotoFile, setPhotoPreview)}
                   required
                 />
               </div>
+
+              {photoPreview && (
+                <div className="file-preview-box">
+                  <span className="preview-label">Image Preview:</span>
+                  <img src={photoPreview} alt="Preview" className="preview-img" />
+                </div>
+              )}
+
               <div className="modal-footer">
-                <button type="button" className="btn-cancel" onClick={() => setShowPhotoModal(false)}>
+                <button type="button" className="btn-cancel" onClick={() => setShowPhotoModal(false)} disabled={submitting}>
                   Cancel
                 </button>
-                <button type="submit" className="btn-submit">
-                  Save Photo
+                <button type="submit" className="btn-submit" disabled={submitting}>
+                  {submitting ? <><FaSpinner className="spinner-icon" /> Uploading...</> : "Upload Photo"}
                 </button>
               </div>
             </form>
@@ -462,12 +507,12 @@ export default function ManageGallery() {
         </div>
       )}
 
-      {/* ── MODAL 2: ADD / EDIT CHAMPION ── */}
+      {/* ── MODAL 2: UPLOAD CHAMPION (File Input) ── */}
       {showChampModal && (
         <div className="modal-backdrop" onClick={() => setShowChampModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>{editingItem ? "Edit Champion" : "Add Monthly Champion"}</h3>
+              <h3>Upload Monthly Champion</h3>
               <button className="modal-close" onClick={() => setShowChampModal(false)}>
                 <FaTimes />
               </button>
@@ -488,7 +533,7 @@ export default function ManageGallery() {
                   <label>Month</label>
                   <input
                     type="text"
-                    placeholder="e.g. January"
+                    placeholder="January"
                     value={champForm.month}
                     onChange={(e) => setChampForm({ ...champForm, month: e.target.value })}
                   />
@@ -503,40 +548,51 @@ export default function ManageGallery() {
                   />
                 </div>
               </div>
-              <div className="form-group">
-                <label>Attendance Record</label>
-                <input
-                  type="text"
-                  placeholder="e.g. 30 / 30 Days"
-                  value={champForm.attendance}
-                  onChange={(e) => setChampForm({ ...champForm, attendance: e.target.value })}
-                />
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Attendance Record</label>
+                  <input
+                    type="text"
+                    placeholder="30 / 30 Days"
+                    value={champForm.attendance}
+                    onChange={(e) => setChampForm({ ...champForm, attendance: e.target.value })}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Prize / Badge</label>
+                  <input
+                    type="text"
+                    placeholder="Gold Medal"
+                    value={champForm.prize}
+                    onChange={(e) => setChampForm({ ...champForm, prize: e.target.value })}
+                  />
+                </div>
               </div>
+
+              {/* Secure File Input */}
               <div className="form-group">
-                <label>Prize / Medal</label>
+                <label>Champion Photo File (JPG, PNG, WEBP, max 5MB) *</label>
                 <input
-                  type="text"
-                  placeholder="e.g. Gold Medal"
-                  value={champForm.prize}
-                  onChange={(e) => setChampForm({ ...champForm, prize: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label>Member Photo URL *</label>
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  value={champForm.image}
-                  onChange={(e) => setChampForm({ ...champForm, image: e.target.value })}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={(e) => handleFileChange(e, setChampFile, setChampPreview)}
                   required
                 />
               </div>
+
+              {champPreview && (
+                <div className="file-preview-box">
+                  <span className="preview-label">Image Preview:</span>
+                  <img src={champPreview} alt="Preview" className="preview-img" />
+                </div>
+              )}
+
               <div className="modal-footer">
-                <button type="button" className="btn-cancel" onClick={() => setShowChampModal(false)}>
+                <button type="button" className="btn-cancel" onClick={() => setShowChampModal(false)} disabled={submitting}>
                   Cancel
                 </button>
-                <button type="submit" className="btn-submit">
-                  Save Champion
+                <button type="submit" className="btn-submit" disabled={submitting}>
+                  {submitting ? <><FaSpinner className="spinner-icon" /> Uploading...</> : "Upload Champion"}
                 </button>
               </div>
             </form>
@@ -544,12 +600,12 @@ export default function ManageGallery() {
         </div>
       )}
 
-      {/* ── MODAL 3: ADD / EDIT RECORD ── */}
+      {/* ── MODAL 3: UPLOAD RECORD (File Input) ── */}
       {showRecordModal && (
         <div className="modal-backdrop" onClick={() => setShowRecordModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>{editingItem ? "Edit Record Holder" : "Add Gym Record Holder"}</h3>
+              <h3>Upload Gym Record Holder</h3>
               <button className="modal-close" onClick={() => setShowRecordModal(false)}>
                 <FaTimes />
               </button>
@@ -570,7 +626,7 @@ export default function ManageGallery() {
                   <label>Record Type</label>
                   <input
                     type="text"
-                    placeholder="e.g. Deadlift / Bench Press / Plank"
+                    placeholder="Deadlift / Bench / Squats"
                     value={recordForm.recordType}
                     onChange={(e) => setRecordForm({ ...recordForm, recordType: e.target.value })}
                   />
@@ -579,38 +635,38 @@ export default function ManageGallery() {
                   <label>Record Value *</label>
                   <input
                     type="text"
-                    placeholder="e.g. 220 KG / 18 Mins"
+                    placeholder="e.g. 220 KG"
                     value={recordForm.recordValue}
                     onChange={(e) => setRecordForm({ ...recordForm, recordValue: e.target.value })}
                     required
                   />
                 </div>
               </div>
+
+              {/* Secure File Input */}
               <div className="form-group">
-                <label>Date Accomplished</label>
+                <label>Member Photo File (JPG, PNG, WEBP, max 5MB) *</label>
                 <input
-                  type="text"
-                  placeholder="e.g. 12 Mar 2025"
-                  value={recordForm.date}
-                  onChange={(e) => setRecordForm({ ...recordForm, date: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <label>Member Photo URL *</label>
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  value={recordForm.image}
-                  onChange={(e) => setRecordForm({ ...recordForm, image: e.target.value })}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={(e) => handleFileChange(e, setRecordFile, setRecordPreview)}
                   required
                 />
               </div>
+
+              {recordPreview && (
+                <div className="file-preview-box">
+                  <span className="preview-label">Image Preview:</span>
+                  <img src={recordPreview} alt="Preview" className="preview-img" />
+                </div>
+              )}
+
               <div className="modal-footer">
-                <button type="button" className="btn-cancel" onClick={() => setShowRecordModal(false)}>
+                <button type="button" className="btn-cancel" onClick={() => setShowRecordModal(false)} disabled={submitting}>
                   Cancel
                 </button>
-                <button type="submit" className="btn-submit">
-                  Save Record
+                <button type="submit" className="btn-submit" disabled={submitting}>
+                  {submitting ? <><FaSpinner className="spinner-icon" /> Uploading...</> : "Upload Record"}
                 </button>
               </div>
             </form>

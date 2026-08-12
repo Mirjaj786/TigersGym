@@ -61,7 +61,7 @@ function Footer() {
           <div className="contact-item">
             <FaMapMarkerAlt className="contact-icon" />
             <a href="https://www.google.com/maps/place/Tiger's+Gym/@25.4476007,87.856794,1577m/data=!3m1!1e3!4m6!3m5!1s0x39fac794a048c527:0x699cadda6576ed02!8m2!3d25.4474201!4d87.8589763!16s%2Fg%2F11zj6t2x_6?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D">
-              Malda, West Bengal
+              Sultannagar, Harishchandra Pur, Malda
             </a>
           </div>
 
@@ -72,8 +72,8 @@ function Footer() {
 
           <div className="contact-item">
             <FaEnvelope className="contact-icon" />
-            <a href="mailto:tigersgym@gmail.com" className="contact-link">
-              tigersgym@gmail.com
+            <a href="mailto:www.tigersgym@gmail.com" className="contact-link">
+              www.tigersgym@gmail.com
             </a>
           </div>
 
