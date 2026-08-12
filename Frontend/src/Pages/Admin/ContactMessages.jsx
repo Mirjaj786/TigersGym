@@ -77,11 +77,11 @@ export default function ContactMessages() {
       const updated = inquiries.map((item) =>
         item._id === selectedInquiry._id || item.id === selectedInquiry.id
           ? {
-              ...item,
-              status: "Replied",
-              replyMessage: replyText,
-              repliedAt: new Date().toISOString(),
-            }
+            ...item,
+            status: "Replied",
+            replyMessage: replyText,
+            repliedAt: new Date().toISOString(),
+          }
           : item
       );
 
@@ -89,11 +89,11 @@ export default function ContactMessages() {
       setSelectedInquiry((prev) =>
         prev
           ? {
-              ...prev,
-              status: "Replied",
-              replyMessage: replyText,
-              repliedAt: new Date().toISOString(),
-            }
+            ...prev,
+            status: "Replied",
+            replyMessage: replyText,
+            repliedAt: new Date().toISOString(),
+          }
           : null
       );
       setReplyModalOpen(false);
@@ -171,7 +171,7 @@ export default function ContactMessages() {
 
       {loading ? (
         <div className="loading-state">
-          <FaSpinner className="spinner-icon" /> Fetching live messages...
+          <FaSpinner className="spinner-icon" /> Loading...
         </div>
       ) : (
         /* Main Grid */
@@ -181,20 +181,18 @@ export default function ContactMessages() {
             {filteredInquiries.map((item) => (
               <div
                 key={item._id || item.id}
-                className={`msg-item ${
-                  selectedInquiry &&
-                  (selectedInquiry._id === item._id || selectedInquiry.id === item.id)
+                className={`msg-item ${selectedInquiry &&
+                    (selectedInquiry._id === item._id || selectedInquiry.id === item.id)
                     ? "msg-item--active"
                     : ""
-                }`}
+                  }`}
                 onClick={() => setSelectedInquiry(item)}
               >
                 <div className="msg-item__top">
                   <span className="msg-item__name">{item.name}</span>
                   <span
-                    className={`msg-status-badge ${
-                      item.status === "Replied" ? "badge--replied" : "badge--pending"
-                    }`}
+                    className={`msg-status-badge ${item.status === "Replied" ? "badge--replied" : "badge--pending"
+                      }`}
                   >
                     {item.status}
                   </span>
@@ -227,11 +225,10 @@ export default function ContactMessages() {
                   <div>
                     <h2 className="detail-card__subject">{selectedInquiry.subject}</h2>
                     <span
-                      className={`msg-status-badge ${
-                        selectedInquiry.status === "Replied"
+                      className={`msg-status-badge ${selectedInquiry.status === "Replied"
                           ? "badge--replied"
                           : "badge--pending"
-                      }`}
+                        }`}
                     >
                       {selectedInquiry.status}
                     </span>

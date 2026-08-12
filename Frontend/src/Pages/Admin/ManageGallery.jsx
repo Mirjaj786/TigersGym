@@ -330,7 +330,7 @@ export default function ManageGallery() {
 
       {loading ? (
         <div className="loading-state">
-          <FaSpinner className="spinner-icon" /> Fetching live data from backend...
+          <FaSpinner className="spinner-icon" /> Loading...
         </div>
       ) : (
         <>
