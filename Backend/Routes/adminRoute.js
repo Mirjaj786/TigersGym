@@ -10,7 +10,7 @@ import {
 import { forgotPass, resetPassword } from "../Controllers/passwordController.js";
 import { protectAdmin } from "../Middlewares/authMiddleware.js";
 
-router.route("/register").post(register);
+// router.route("/register").post(register);
 router.route("/login").post(login);
 router.route("/forget-password").post(protectAdmin, forgotPass);
 router.route("/reset-password/:token").post(protectAdmin, resetPassword);
