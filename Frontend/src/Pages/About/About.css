@@ -1,0 +1,665 @@
+/* ═══════════════════════════════════════════════════════════
+   About.css  –  Gym Management System
+   Shares the same design system as Home.css
+   Palette:
+     Black       #111111
+     Red         #ff3b3f
+     White       #ffffff
+     Light Gray  #f5f5f5
+     Dark Text   #222222
+   Fonts: Oswald (headings) + Inter (body)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Base ──────────────────────────────────────────────────── */
+.about {
+  font-family: "Inter", sans-serif;
+  color: #222222;
+  background-color: #ffffff;
+}
+
+/* ── Shared Utilities ──────────────────────────────────────── */
+/*
+  NOTE: .container, .btn, .btn--primary, .btn--dark, .btn--outline,
+  .section-tag, .section-title, .section-desc and .section-header
+  are defined in Home.css (or your global index.css).
+  If About is used standalone, copy those classes here too.
+  These are kept here for reference / override only.
+*/
+
+/* ── Section Header (reuse same pattern as Home) ───────────── */
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff3b3f;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: #555555;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Button System (mirrors Home.css) ──────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+  border: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background-color: #ff3b3f;
+  color: #ffffff;
+  border-color: #ff3b3f;
+}
+.btn--primary:hover {
+  background-color: #e0282c;
+  border-color: #e0282c;
+}
+
+.btn--dark {
+  background-color: #111111;
+  color: #ffffff;
+  border-color: #111111;
+}
+.btn--dark:hover {
+  background-color: #ff3b3f;
+  border-color: #ff3b3f;
+}
+
+.btn--outline {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.btn--outline:hover {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+/* ── Container ─────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   1. ABOUT HERO
+════════════════════════════════════════════════════════════ */
+.about-hero {
+  position: relative;
+  height: 50vh;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=85");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Dark overlay */
+.about-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+/* Centered content block */
+.about-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 680px;
+}
+
+.about-hero__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.about-hero__subtext {
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.75;
+  margin-bottom: 28px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Breadcrumb */
+.about-hero__breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.about-hero__crumb-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.about-hero__crumb-link:hover {
+  color: #ff3b3f;
+}
+
+.about-hero__crumb-sep {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.about-hero__crumb-current {
+  color: #ff3b3f;
+  font-weight: 600;
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. OUR STORY
+════════════════════════════════════════════════════════════ */
+.story {
+  background-color: #ffffff;
+  padding: 96px 0;
+}
+
+/* Two-column layout: image left, text right */
+.story__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.story__image-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.story__image {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Text column */
+.story__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.story__title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.story__text {
+  font-size: 0.97rem;
+  color: #555555;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+/* Quick-stat chips row */
+.story__stats {
+  display: flex;
+  gap: 0;
+  margin: 28px 0 36px;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.story__stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 12px;
+  border-right: 1px solid #e8e8e8;
+  text-align: center;
+}
+.story__stat:last-child {
+  border-right: none;
+}
+
+.story__stat-value {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff3b3f;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.story__stat-label {
+  font-size: 0.78rem;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* ════════════════════════════════════════════════════════════
+   3. MISSION & VISION
+════════════════════════════════════════════════════════════ */
+.mv {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+.mv__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.mv-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 48px 40px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  border-bottom: 3px solid transparent;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.mv-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12);
+  border-bottom-color: #ff3b3f;
+}
+
+.mv-card__icon {
+  font-size: 2.4rem;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.mv-card__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 16px;
+}
+
+.mv-card__desc {
+  font-size: 0.97rem;
+  color: #555555;
+  line-height: 1.8;
+}
+
+/* ════════════════════════════════════════════════════════════
+   4. WHY CHOOSE FITZONE
+════════════════════════════════════════════════════════════ */
+.why {
+  background-color: #ffffff;
+  padding: 96px 0;
+}
+
+/* 3-column grid, 2 rows = 6 cards */
+.why__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.why-card {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  padding: 36px 28px;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.why-card__icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.why-card__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 10px;
+}
+
+.why-card__desc {
+  font-size: 0.92rem;
+  color: #555555;
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════════════════════
+   5. OUR FACILITY
+════════════════════════════════════════════════════════════ */
+.facility {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+/* Two-column: text left, image right — mirrors Story section */
+.facility__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+.facility__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.facility__title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.facility__desc {
+  font-size: 0.97rem;
+  color: #555555;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+/* Feature checklist */
+.facility__list {
+  list-style: none;
+  margin-bottom: 36px;
+  width: 100%;
+}
+
+.facility__list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: #333333;
+  padding: 10px 0;
+  border-bottom: 1px solid #e8e8e8;
+  font-weight: 500;
+}
+.facility__list-item:first-child {
+  border-top: 1px solid #e8e8e8;
+}
+
+.facility__list-check {
+  color: #ff3b3f;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Image */
+.facility__image-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.facility__image {
+  width: 100%;
+  height: 480px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ════════════════════════════════════════════════════════════
+   6. ACHIEVEMENTS
+════════════════════════════════════════════════════════════ */
+.achievements {
+  background-color: #111111;
+  padding: 72px 0;
+}
+
+.achievements__grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.achievement {
+  position: relative;
+  flex: 1;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 32px;
+}
+
+.achievement__number {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: #ff3b3f;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.achievement__label {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+
+/* Vertical red divider between achievements */
+.achievement__divider {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 44px;
+  background-color: #ff3b3f;
+  opacity: 0.5;
+}
+
+/* ════════════════════════════════════════════════════════════
+   7. CALL TO ACTION
+════════════════════════════════════════════════════════════ */
+.about-cta {
+  background-color: #ffffff;
+  padding: 96px 0;
+  border-top: 1px solid #f0f0f0;
+}
+
+.about-cta__inner {
+  text-align: center;
+}
+
+.about-cta__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.about-cta__desc {
+  font-size: 1.05rem;
+  color: #555555;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+}
+
+.about-cta__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════ */
+
+/* ── Tablet: ≤ 900px ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Story & Facility: stack to single column */
+  .story__inner,
+  .facility__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* On tablet, facility image comes after text naturally */
+  .facility__image-wrap {
+    order: 2;
+  }
+
+  .story__image,
+  .facility__image {
+    height: 320px;
+  }
+
+  /* Mission/Vision: stack */
+  .mv__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Why grid: 2 columns on tablet */
+  .why__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Mobile: ≤ 640px ────────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Section padding */
+  .story,
+  .mv,
+  .why,
+  .facility,
+  .achievements,
+  .about-cta {
+    padding: 64px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  /* Hero */
+  .about-hero {
+    min-height: 340px;
+  }
+
+  /* Story stats: full width chips */
+  .story__stats {
+    flex-direction: column;
+  }
+
+  .story__stat {
+    border-right: none;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px;
+  }
+  .story__stat:last-child {
+    border-bottom: none;
+  }
+
+  /* Why: single column */
+  .why__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Achievements: 2x2 wrap */
+  .achievements__grid {
+    gap: 0;
+  }
+
+  .achievement {
+    flex: 0 0 50%;
+    min-width: 0;
+  }
+
+  /* Hide dividers on mobile to avoid clutter */
+  .achievement__divider {
+    display: none;
+  }
+
+  /* CTA buttons */
+  .about-cta__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

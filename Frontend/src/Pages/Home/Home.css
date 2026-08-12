@@ -1,0 +1,742 @@
+/* ═══════════════════════════════════════════════════════════
+   Home.css  –  Neighborhood Gym
+   Palette:
+     Black       #111111
+     Red         #ff3b3f
+     White       #ffffff
+     Light Gray  #f5f5f5
+     Dark Text   #222222
+   Fonts: Oswald (headings) + Inter (body) via Google Fonts
+   Add to index.html <head>:
+     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+═══════════════════════════════════════════════════════════ */
+
+/* ── Reset & Base ──────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.home {
+  font-family: "Inter", sans-serif;
+  color: #222222;
+  background-color: #ffffff;
+}
+
+/* ── Utility: Container ────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Utility: Buttons ──────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+  border: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Red filled button */
+.btn--primary {
+  background-color: #ff3b3f;
+  color: #ffffff;
+  border-color: #ff3b3f;
+}
+.btn--primary:hover {
+  background-color: #e0282c;
+  border-color: #e0282c;
+}
+
+/* White outline button (for dark backgrounds) */
+.btn--outline {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.btn--outline:hover {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+/* Dark filled button (for light backgrounds) */
+.btn--dark {
+  background-color: #111111;
+  color: #ffffff;
+  border-color: #111111;
+}
+.btn--dark:hover {
+  background-color: #ff3b3f;
+  border-color: #ff3b3f;
+}
+
+/* Large size modifier */
+.btn--lg {
+  padding: 16px 48px;
+  font-size: 1rem;
+}
+
+/* ── Utility: Section Headers ──────────────────────────────── */
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff3b3f;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: #555555;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Accent colour span ────────────────────────────────────── */
+.hero__accent {
+  color: #ff3b3f;
+}
+
+/* ════════════════════════════════════════════════════════════
+   1. HERO
+════════════════════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=85");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.68);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 120px 24px 180px;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.hero__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2.2rem, 6vw, 4.4rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.12;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.hero__subtext {
+  font-size: clamp(1rem, 2.2vw, 1.1rem);
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.75;
+  margin-bottom: 40px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Hero Feature Bar (replaces fake stats) ── */
+.hero__stats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111111;
+  padding: 24px;
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40px;
+  text-align: center;
+  gap: 8px;
+}
+
+.hero__stat-icon {
+  font-size: 1.6rem;
+  color: #ff3b3f !important;
+  line-height: 1;
+}
+
+.hero__stat-icon,
+.hero__stat-icon svg,
+.hero__stat svg {
+  color: #ff3b3f !important;
+  fill: #ff3b3f !important;
+  stroke: #ff3b3f !important;
+}
+
+.hero__stat-label {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.hero__stat-divider {
+  width: 2px;
+  height: 40px;
+  background-color: #ff3b3f;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. WHY CHOOSE US
+════════════════════════════════════════════════════════════ */
+.features {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 28px;
+}
+
+.feature-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 36px 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+}
+
+.feature-card__icon {
+  font-size: 1.8rem;
+  color: #ff3b3f;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.feature-card__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 12px;
+}
+
+.feature-card__desc {
+  font-size: 0.93rem;
+  color: #555555;
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════════════════════
+   3. PROGRAMS
+════════════════════════════════════════════════════════════ */
+.programs {
+  background-color: #ffffff;
+  padding: 96px 0;
+}
+
+.programs__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.program-card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.13);
+}
+
+.program-card__img-wrap {
+  height: 220px;
+  overflow: hidden;
+}
+
+.program-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.program-card:hover .program-card__img {
+  transform: scale(1.05);
+}
+
+.program-card__body {
+  padding: 28px 24px;
+}
+
+.program-card__icon {
+  font-size: 1.4rem;
+  color: #ff3b3f;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.program-card__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 10px;
+}
+
+.program-card__desc {
+  font-size: 0.93rem;
+  color: #555555;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.program-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ff3b3f;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: gap 0.2s ease;
+}
+
+.program-card__link:hover {
+  gap: 12px;
+  text-decoration: underline;
+}
+
+.program-card__arrow {
+  font-size: 0.8rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   4. MEMBERSHIP PREVIEW
+════════════════════════════════════════════════════════════ */
+.membership {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+.membership__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── Offer Card ── */
+.membership-offer {
+  background-color: #111111;
+  border-radius: 10px;
+  padding: 40px 36px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.membership-offer__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ff3b3f;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 20px;
+}
+
+.membership-offer__label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.membership-offer__pricing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.membership-offer__old {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: line-through;
+}
+
+.membership-offer__new {
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff3b3f;
+  line-height: 1;
+}
+
+.membership-offer__save {
+  background-color: rgba(255, 59, 63, 0.15);
+  color: #ff3b3f;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 59, 63, 0.4);
+}
+
+.membership-offer__note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Regular Pricing Card ── */
+.membership-regular {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 40px 36px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+}
+
+.membership-regular__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 24px;
+}
+
+.membership-regular__rows {
+  margin-bottom: 28px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.membership-regular__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.membership-regular__item {
+  font-size: 0.95rem;
+  color: #444444;
+}
+
+.membership-regular__price {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ff3b3f;
+}
+
+.membership-regular__features {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.membership-regular__feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.93rem;
+  color: #444444;
+  padding: 7px 0;
+}
+
+.membership-regular__check {
+  color: #ff3b3f;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.membership-regular .btn {
+  width: 100%;
+}
+
+/* ════════════════════════════════════════════════════════════
+   5. MEET THE OWNER
+════════════════════════════════════════════════════════════ */
+.owner {
+  background-color: #ffffff;
+  padding: 96px 0;
+}
+
+.owner__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.owner__img-wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  height: 440px;
+}
+
+.owner__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+
+.owner__body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.owner__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ff3b3f;
+}
+
+.owner__name {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.2;
+}
+
+.owner__bio {
+  font-size: 0.97rem;
+  color: #555555;
+  line-height: 1.8;
+}
+
+/* ════════════════════════════════════════════════════════════
+   6. CALL TO ACTION
+════════════════════════════════════════════════════════════ */
+.cta {
+  background-color: #111111;
+  padding: 96px 0;
+}
+
+.cta__inner {
+  text-align: center;
+}
+
+.cta__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.cta__desc {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+}
+
+.cta__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════ */
+
+/* ── Tablet: max 900px ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Membership: stack cards */
+  .membership__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Owner: stack image + text */
+  .owner__inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .owner__img-wrap {
+    height: 320px;
+  }
+
+  /* Features: 2 columns */
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Mobile: max 640px ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Hero */
+  .hero__content {
+    padding: 100px 20px 160px;
+  }
+
+  .hero__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__buttons .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  /* Hero stat bar: vertical stack */
+  .hero__stats {
+    flex-direction: column;
+    gap: 20px;
+    padding: 32px 24px;
+  }
+
+  .hero__stat-divider {
+    width: 48px;
+    height: 2px;
+  }
+
+  .hero__stat {
+    padding: 0;
+  }
+
+  /* Sections: reduced padding on mobile */
+  .features,
+  .programs,
+  .membership,
+  .owner,
+  .cta {
+    padding: 64px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  /* Programs: single column */
+  .programs__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Features: 2 columns still works fine on most phones */
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Membership: full-width padding tweak */
+  .membership-offer,
+  .membership-regular {
+    padding: 32px 24px;
+  }
+
+  /* Owner */
+  .owner__img-wrap {
+    height: 260px;
+  }
+
+  /* CTA buttons: full width */
+  .cta__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta__buttons .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}

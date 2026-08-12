@@ -1,0 +1,688 @@
+/* ═══════════════════════════════════════════════════════════
+   Membership.css  –  Gym Management System
+   Palette: #111111 | #ff3b3f | #ffffff | #f5f5f5
+   Fonts: Oswald (headings) + Inter (body)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Base & Utilities ──────────────────────────────────────── */
+
+.mem-page {
+  font-family: "Inter", sans-serif;
+  color: #222;
+  background: #fff;
+}
+
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Background helpers */
+.bg-gray {
+  background-color: #f5f5f5;
+}
+.bg-white {
+  background-color: #ffffff;
+}
+
+/* Section spacing */
+.mem-section {
+  padding: 96px 0;
+}
+
+/* Section header */
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #111;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.section-desc {
+  font-size: 1rem;
+  color: #555;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Red tag label */
+.tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff3b3f;
+  margin-bottom: 12px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 13px 28px;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s,
+    color 0.25s,
+    border-color 0.25s;
+}
+.btn--primary {
+  background: #ff3b3f;
+  color: #fff;
+  border-color: #ff3b3f;
+}
+.btn--primary:hover {
+  background: #e0282c;
+  border-color: #e0282c;
+}
+.btn--dark {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.btn--dark:hover {
+  background: #ff3b3f;
+  border-color: #ff3b3f;
+}
+.btn--outline {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.btn--outline:hover {
+  background: #fff;
+  color: #111;
+}
+.btn--ghost {
+  background: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+.btn--ghost:hover {
+  background: #fff;
+  color: #111;
+}
+.btn--white {
+  background: #fff;
+  color: #ff3b3f;
+  border-color: #fff;
+  font-weight: 700;
+}
+.btn--white:hover {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.breadcrumb__link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.breadcrumb__link:hover {
+  color: #ff3b3f;
+}
+.breadcrumb__current {
+  color: #ff3b3f;
+  font-weight: 600;
+}
+
+/* Card grid layouts */
+.cards-grid {
+  display: grid;
+  gap: 24px;
+}
+.cards-grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.cards-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.cards-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ── Feature Card (shared by Benefits + Why Join) ─────────── */
+.feature-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+}
+.feature-card__icon {
+  font-size: 1.8rem;
+  color: #ff3b3f;
+  display: block;
+  margin-bottom: 16px;
+}
+.feature-card h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 10px;
+}
+.feature-card p {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ── FAQ Card ─────────────────────────────────────────────── */
+.faq-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 32px 28px;
+  border-left: 4px solid transparent;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    border-color 0.25s;
+}
+.faq-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-left-color: #ff3b3f;
+}
+.faq-card__icon {
+  font-size: 1.4rem;
+  color: #ff3b3f;
+  display: block;
+  margin-bottom: 12px;
+}
+.faq-card h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 10px;
+}
+.faq-card p {
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ── Check icon (inside price card lists) ──────────────────── */
+.check-icon {
+  color: #ff3b3f;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Hero
+════════════════════════════════════════════════════════════ */
+.mem-hero {
+  position: relative;
+  height: 50vh;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1600&q=85")
+    center/cover no-repeat;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+}
+.mem-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 680px;
+}
+.mem-hero__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.mem-hero__sub {
+  font-size: clamp(0.93rem, 2vw, 1rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Limited Time Offer
+════════════════════════════════════════════════════════════ */
+.mem-offer {
+  background: #ff3b3f;
+  padding: 48px 0;
+}
+
+.offer-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 12px;
+  padding: 36px 40px;
+}
+
+.offer-banner__tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 10px;
+}
+.offer-banner__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.offer-banner__prices {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.price-old {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: line-through;
+}
+.price-new {
+  font-family: "Oswald", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+.price-new small {
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+}
+.price-save {
+  background: #fff;
+  color: #ff3b3f;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.offer-banner__notes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.offer-banner__notes li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ════════════════════════════════════════════════════════════
+   Membership Pricing
+════════════════════════════════════════════════════════════ */
+.mem-pricing {
+  background: #f5f5f5;
+  padding: 96px 0;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.price-card {
+  border-radius: 12px;
+  padding: 40px 32px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+  position: relative;
+  color: #e5e5e5;
+}
+.price-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.14);
+}
+
+/* Red variant */
+.price-card--red {
+  background: #fff;
+}
+/* Dark variant */
+.price-card--dark {
+  background: #111;
+}
+.price-card--dark h3,
+.price-card--dark li {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.price-card__badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: #ff3b3f;
+  color: #fff;
+  margin-bottom: 20px;
+}
+.price-card__badge--gray {
+  background: #444;
+}
+
+.price-card h3 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+.price-card__amount {
+  font-family: "Oswald", sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ff3b3f;
+  line-height: 1;
+  margin-bottom: 28px;
+}
+.price-card__amount span {
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  color: #888;
+}
+
+.price-card__list {
+  list-style: none;
+  margin-bottom: 32px;
+}
+.price-card__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: #444;
+  /* color: #fff !important; */
+  padding: 9px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+.price-card__list2 li {
+  color: #fff;
+}
+.price-card--dark .price-card__list li {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.price-card .btn {
+  width: 50%;
+  text-align: center;
+  border-color: #e0282c;
+}
+
+.btn-div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-top: 100px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Referral
+════════════════════════════════════════════════════════════ */
+.referral-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  background: #111;
+  border-radius: 12px;
+  padding: 40px 48px;
+}
+.referral-card__body h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.referral-card__body p {
+  font-size: 0.97rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+}
+.referral-card__body small {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.referral-card__badge {
+  font-family: "Oswald", sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff3b3f;
+  text-align: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.referral-card__badge span {
+  display: block;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ════════════════════════════════════════════════════════════
+   Festival
+════════════════════════════════════════════════════════════ */
+.festival-card {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 48px 40px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px dashed #ddd;
+}
+.festival-card h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111;
+  margin: 16px 0 12px;
+}
+.festival-card p {
+  font-size: 0.97rem;
+  color: #555;
+  line-height: 1.7;
+}
+.festival-card ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+.festival-card__note {
+  font-size: 0.88rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CTA
+════════════════════════════════════════════════════════════ */
+.mem-cta {
+  background: #111;
+  padding: 96px 0;
+}
+.mem-cta__inner {
+  text-align: center;
+}
+.mem-cta__inner h2 {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+.mem-cta__inner p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+}
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ════════════════════════════════════════════════════════════
+   Responsive
+════════════════════════════════════════════════════════════ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .cards-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .cards-grid--3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .offer-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .referral-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .referral-card__body h2 {
+    justify-content: center;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .mem-section {
+    padding: 64px 0;
+  }
+  .mem-pricing {
+    padding: 64px 0;
+  }
+  .mem-offer {
+    padding: 32px 0;
+  }
+  .mem-cta {
+    padding: 64px 0;
+  }
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+  .cards-grid--2 {
+    grid-template-columns: 1fr;
+  }
+  .cards-grid--3 {
+    grid-template-columns: 1fr;
+  }
+  .cards-grid--4 {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-banner {
+    padding: 24px 20px;
+  }
+  .festival-card {
+    padding: 32px 20px;
+  }
+  .festival-card ul {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .referral-card {
+    padding: 28px 20px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .mem-hero {
+    min-height: 340px;
+  }
+}

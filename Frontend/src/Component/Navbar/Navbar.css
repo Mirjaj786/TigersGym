@@ -1,0 +1,297 @@
+/* ======================================================
+   NAVBAR
+====================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  /* background: rgba(17, 17, 17, 0.96); */
+  background: black;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 1000;
+}
+
+.navbar-container {
+  width: min(92%, 1200px);
+  margin: auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+/* ======================================================
+   LOGO
+====================================================== */
+
+.logo {
+  height: 80px !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 70px;
+  width: auto;
+  object-fit: contain;
+  color: #444;
+  border-radius: 50%;
+  background: black;
+}
+
+/* ======================================================
+   NAV LINKS
+====================================================== */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
+  position: relative;
+  text-decoration: none;
+  color: #ddd;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 2px;
+  background: #ff3b3f;
+  transition: 0.3s;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: #ff3b3f;
+}
+
+/* ======================================================
+   RIGHT BUTTONS
+====================================================== */
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.admin-link {
+  text-decoration: none;
+  color: #ddd;
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+
+.admin-link:hover {
+  color: #ff3b3f;
+}
+
+.join-btn {
+  text-decoration: none;
+  background: #ff3b3f;
+  color: #fff;
+  padding: 11px 26px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.join-btn:hover {
+  background: #fff;
+  color: #111;
+}
+
+/* ======================================================
+   HAMBURGER
+====================================================== */
+
+.hamburger {
+  display: none;
+
+  border: none;
+  background: none;
+
+  cursor: pointer;
+
+  color: #ff3b3f;
+
+  font-size: 1.8rem;
+
+  transition: 0.3s;
+}
+/* React Icon */
+.hamburger svg{
+    width:28px;
+    height:28px;
+
+    color:#ff3b3f !important;
+    fill:#ff3b3f !important;
+    stroke:#ff3b3f !important;
+}
+
+.hamburger:hover {
+  transform: scale(1.08);
+  color: #ff5b5f;
+}
+
+.hamburger svg {
+  display: block;
+}
+
+/* ======================================================
+   MOBILE BUTTONS
+====================================================== */
+
+.mobile-buttons {
+  display: none;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width: 900px) {
+  .navbar-container {
+    width: 92%;
+  }
+
+  .navbar-actions {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Mobile Menu */
+
+  .nav-links {
+    position: fixed;
+
+    top: 80px;
+    left: 0;
+
+    width: 100%;
+
+    background: #111;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+
+    overflow: hidden;
+
+    max-height: 0;
+    opacity: 0;
+
+    transform: translateY(-15px);
+
+    transition:
+      max-height 0.35s ease,
+      opacity 0.35s ease,
+      transform 0.35s ease;
+  }
+
+  .nav-links.nav-open {
+    max-height: 700px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-links a::after {
+    display: none;
+  }
+
+  /* Mobile Buttons */
+
+  .mobile-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    padding: 25px;
+  }
+
+  .mobile-join-btn {
+    text-decoration: none;
+    background: #ff3b3f;
+    color: #fff !important;
+
+    padding: 13px;
+    border-radius: 30px;
+    text-align: center;
+    font-weight: 600;
+
+    border: none !important;
+  }
+
+  .mobile-join-btn:hover {
+    background: #ff4e52;
+  }
+
+  .mobile-admin-btn {
+    text-decoration: none;
+    color: #fff !important;
+
+    padding: 13px;
+
+    text-align: center;
+
+    border: 1px solid #444;
+    border-radius: 30px;
+  }
+
+  .mobile-admin-btn:hover {
+    background: #222;
+    border-color: #ff3b3f;
+    color: #ff3b3f !important;
+  }
+}
+
+/* ======================================================
+   SMALL DEVICES
+====================================================== */
+
+@media (max-width: 500px) {
+  .logo {
+    font-size: 1.7rem;
+  }
+
+  .hamburger {
+    font-size: 1.7rem;
+  }
+}

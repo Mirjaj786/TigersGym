@@ -1,0 +1,864 @@
+/* ═══════════════════════════════════════════════════════════
+   Contact.css  —  FITZONE Gym Management System
+   Single merged file. No duplicate selectors.
+   Palette:
+     Black      #111111
+     Red        #ff3b3f
+     White      #ffffff
+     Light Gray #f5f5f5
+     Dark Text  #222222
+   Fonts: Oswald (headings) + Inter (body)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Reset box-sizing ──────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Page base ─────────────────────────────────────────────── */
+.contact-page {
+  font-family: "Inter", sans-serif;
+  color: #222222;
+  background-color: #ffffff;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SHARED UTILITIES
+════════════════════════════════════════════════════════════ */
+.container {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-family: "Inter", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ff3b3f;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: #555555;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ── Buttons ───────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  text-align: center;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.btn--primary {
+  background-color: #ff3b3f;
+  color: #ffffff;
+  border-color: #ff3b3f;
+}
+.btn--primary:hover {
+  background-color: #e0282c;
+  border-color: #e0282c;
+}
+
+.btn--ghost {
+  background-color: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+.btn--ghost:hover {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+/* ════════════════════════════════════════════════════════════
+   1. HERO
+════════════════════════════════════════════════════════════ */
+.con-hero {
+  position: relative;
+  height: 50vh;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1600&q=85");
+  background-size: cover;
+  background-position: center;
+}
+
+.con-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.con-hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 680px;
+}
+
+.con-hero__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.con-hero__subtext {
+  font-size: clamp(0.93rem, 2vw, 1rem);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.75;
+  margin-bottom: 28px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.con-hero__breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.con-hero__crumb-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.con-hero__crumb-link:hover {
+  color: #ff3b3f;
+}
+.con-hero__crumb-sep {
+  color: rgba(255, 255, 255, 0.35);
+}
+.con-hero__crumb-current {
+  color: #ff3b3f;
+  font-weight: 600;
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. CONTACT INFO CARDS
+════════════════════════════════════════════════════════════ */
+.con-info {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+.con-info__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.con-info-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 36px 24px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.con-info-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.11);
+}
+
+.con-info-card__icon {
+  font-size: 1.8rem;
+  color: #ff3b3f;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.con-info-card__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 10px;
+}
+
+.con-info-card__line {
+  font-size: 0.9rem;
+  color: #555555;
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════════════════════
+   3. FORM + MAP  (two-column)
+════════════════════════════════════════════════════════════ */
+.con-form-map {
+  background-color: #ffffff;
+  padding: 96px 0;
+}
+
+.con-form-map__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start; /* each column takes its natural height */
+}
+
+/* ── Contact Form ── */
+.con-form-wrap {
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  padding: 40px 36px;
+}
+
+.con-form__title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+}
+
+.con-form__subtitle {
+  font-size: 0.92rem;
+  color: #666666;
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.con-form__success {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.con-form__success-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.con-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.con-form__field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.con-form__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+.con-form__input,
+.con-form__textarea {
+  font-family: "Inter", sans-serif;
+  font-size: 0.93rem;
+  color: #222222;
+  background-color: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px 14px;
+  outline: none;
+  resize: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.con-form__input:focus,
+.con-form__textarea:focus {
+  border-color: #ff3b3f;
+  box-shadow: 0 0 0 3px rgba(255, 59, 63, 0.1);
+}
+
+.con-form__input--error {
+  border-color: #ff3b3f !important;
+}
+
+.con-form__error {
+  font-size: 0.78rem;
+  color: #ff3b3f;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.con-form__submit {
+  margin-top: 4px;
+  width: 100%;
+  justify-content: center;
+}
+
+.con-form__submit-icon {
+  font-size: 0.85rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   MAP WIDGET
+   FIX 7: overflow is NOT hidden on the outer wrapper — that
+   was clipping Leaflet's zoom controls and attribution bar.
+   Only the inner canvas div clips with overflow:hidden.
+════════════════════════════════════════════════════════════ */
+.con-map-wrap {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  /* overflow:hidden REMOVED — was clipping Leaflet controls */
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e8e8e8;
+  /* FIX 3: explicit height so flex children don't collapse */
+  height: 560px;
+}
+
+/* ── Header bar ── */
+.con-map__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background-color: #111111;
+  padding: 16px 20px;
+  flex-shrink: 0;
+  /* Round only the top corners since overflow:hidden is removed */
+  border-radius: 12px 12px 0 0;
+}
+
+.con-map__header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.con-map__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Oswald", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+}
+
+.con-map__title-icon {
+  color: #ff3b3f;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.con-map__address {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  padding-left: 22px;
+}
+
+.con-map__directions-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background-color: #ff3b3f;
+  color: #ffffff;
+  border-radius: 6px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease;
+}
+.con-map__directions-btn:hover {
+  background-color: #e0282c;
+  transform: translateY(-1px);
+}
+
+/* ── Leaflet canvas
+   FIX 3: flex:1 alone collapses when the grid gives no height.
+   Explicit min-height AND height:100% on the MapContainer style
+   prop together guarantee the map always renders.
+── */
+.con-map__leaflet {
+  flex: 1;
+  min-height: 0; /* allow flex child to shrink below content size */
+  overflow: hidden; /* clip the map tiles at the canvas edge */
+}
+
+/* The MapContainer renders a div; make it fill the flex child */
+.con-map__leaflet .leaflet-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Footer strip ── */
+.con-map__footer {
+  background-color: #f5f5f5;
+  border-top: 1px solid #e8e8e8;
+  padding: 11px 20px;
+  flex-shrink: 0;
+  border-radius: 0 0 12px 12px;
+}
+
+.con-map__footer-hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #555555;
+  font-weight: 500;
+}
+.con-map__footer-hours svg {
+  color: #ff3b3f;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ── Custom red pin marker
+   FIX 2: class is now "fitzone-marker-wrap" (not empty string)
+── */
+.fitzone-marker-wrap {
+  background: none !important;
+  border: none !important;
+}
+
+/* ── Leaflet Popup — styled via descendant selectors
+   FIX 4 & 6: No className on <Popup>. Style the popup by
+   scoping to .con-map__leaflet so we don't affect other maps.
+   Remove padding:0 override that was clipping content.
+── */
+.con-map__leaflet .leaflet-popup-content-wrapper {
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 0; /* Leaflet sets 1px 24px; reset to 0 */
+  overflow: hidden;
+}
+
+/* Popup content div — Leaflet adds 13px 19px padding by default;
+   zero it out so our inner div controls all spacing */
+.con-map__leaflet .leaflet-popup-content {
+  margin: 0;
+  line-height: 1;
+}
+
+.fitzone-popup__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 18px;
+  min-width: 190px;
+}
+
+.fitzone-popup__name {
+  font-family: "Oswald", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111111;
+  display: block;
+}
+
+.fitzone-popup__address {
+  font-size: 0.82rem;
+  color: #666666;
+  line-height: 1.5;
+  display: block;
+}
+
+.fitzone-popup__link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ff3b3f;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.fitzone-popup__link:hover {
+  color: #e0282c;
+  text-decoration: underline;
+}
+
+.con-map__leaflet .leaflet-popup-tip {
+  background: #ffffff;
+}
+
+/* ════════════════════════════════════════════════════════════
+   4. BUSINESS HOURS
+════════════════════════════════════════════════════════════ */
+.con-hours {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+.hours-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 48px 40px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.hours-card__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.hours-card__day {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hours-card__day-name {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.hours-card__slots {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hours-card__slot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hours-card__slot-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hours-card__slot-time {
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+.hours-card__divider {
+  width: 1px;
+  height: 36px;
+  background-color: #e0e0e0;
+  flex-shrink: 0;
+}
+
+.hours-card__day--closed {
+  gap: 12px;
+}
+
+.hours-card__closed-badge {
+  display: inline-block;
+  background-color: #fff0f0;
+  color: #c62828;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  align-self: flex-start;
+}
+
+.hours-card__note {
+  font-size: 0.9rem;
+  color: #888888;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 24px;
+  line-height: 1.65;
+}
+
+/* ════════════════════════════════════════════════════════════
+   5. SOCIAL MEDIA
+   FIX 5 (naming): renamed .social-icons → .social-icons-row
+   and .social-icon → .social-icon-btn to avoid clashing with
+   the Footer's .social-icons / .social-icons a rules if both
+   CSS files are loaded at the same time.
+════════════════════════════════════════════════════════════ */
+.con-social {
+  background-color: #ffffff;
+  padding: 96px 0;
+}
+
+.con-social__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.social-icons-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 36px 0 24px;
+}
+
+.social-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+  color: #555555;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+.social-icon-btn:hover {
+  background-color: var(--brand);
+  color: #ffffff;
+  transform: translateY(-4px);
+}
+
+.con-social__tagline {
+  font-size: 0.92rem;
+  color: #888888;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* ════════════════════════════════════════════════════════════
+   6. FAQ
+════════════════════════════════════════════════════════════ */
+.con-faq {
+  background-color: #f5f5f5;
+  padding: 96px 0;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.faq-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 32px 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-left: 4px solid transparent;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+.faq-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-left-color: #ff3b3f;
+}
+
+.faq-card__question {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #111111;
+  margin-bottom: 12px;
+}
+
+.faq-card__answer {
+  font-size: 0.93rem;
+  color: #555555;
+  line-height: 1.75;
+}
+
+/* ════════════════════════════════════════════════════════════
+   7. CTA
+════════════════════════════════════════════════════════════ */
+.con-cta {
+  background-color: #111111;
+  padding: 96px 0;
+}
+
+.con-cta__inner {
+  text-align: center;
+}
+
+.con-cta__heading {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.con-cta__desc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.75;
+}
+
+.con-cta__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════ */
+
+/* ── ≤ 1024px — info cards: 2 columns ── */
+@media (max-width: 1024px) {
+  .con-info__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── ≤ 900px — stack form + map; FAQ single column ── */
+@media (max-width: 900px) {
+  .con-form-map__inner {
+    grid-template-columns: 1fr;
+  }
+  .con-map-wrap {
+    height: 460px;
+  }
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── ≤ 640px — mobile ── */
+@media (max-width: 640px) {
+  .con-info,
+  .con-form-map,
+  .con-hours,
+  .con-social,
+  .con-faq,
+  .con-cta {
+    padding: 64px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  /* 1-column info cards on mobile */
+  .con-info__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Form: tighter padding + stack name/phone row */
+  .con-form-wrap {
+    padding: 28px 20px;
+  }
+  .con-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  /* Map: shorter on mobile */
+  .con-map-wrap {
+    height: 420px;
+  }
+
+  .con-map__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .con-map__directions-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Hours: stack columns */
+  .hours-card__row {
+    flex-direction: column;
+    gap: 28px;
+  }
+  .hours-card {
+    padding: 32px 20px;
+  }
+
+  /* Hero */
+  .con-hero {
+    min-height: 340px;
+  }
+
+  /* CTA buttons: stack */
+  .con-cta__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

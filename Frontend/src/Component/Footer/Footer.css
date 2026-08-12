@@ -1,0 +1,263 @@
+/* ═══════════════════════════════════════════════════════════
+   Footer.css  –  FITZONE
+   Color roles:
+     Footer BG          #111111
+     Section BG strip   #161616   (slightly lighter for depth)
+     Body text          #c0c0c0   (readable on dark, not glaring)
+     Headings           #ffffff
+     Accent / icons     #ff3b3f
+     Muted text         #888888
+     Social icon resting bg  #242424
+     Social icon border      rgba(255,255,255,0.08)
+   SVG color strategy:
+     - NEVER use a blanket svg override on .footer-container
+     - Colour each icon group explicitly with a targeted class
+═══════════════════════════════════════════════════════════ */
+
+/* ── Base ──────────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  background: black;
+  color: #c0c0c0;
+  font-family: "Inter", sans-serif;
+  margin-top: 80px;
+}
+
+/* ── Premium top gradient border ──────────────────────────── */
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    #ff3b3f,
+    #ff6b6b,
+    #ff3b3f,
+    transparent
+  );
+}
+
+/* ── Grid container ───────────────────────────────────────── */
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 70px 0 50px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 50px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BRAND
+════════════════════════════════════════════════════════════ */
+.footer-logo {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  margin-bottom: 18px;
+  color: #ffffff;
+}
+
+.footer-logo span {
+  color: #ff3b3f;
+}
+
+.footer-brand p {
+  color: #c0c0c0;
+  line-height: 1.8;
+  max-width: 330px;
+  font-size: 0.95rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SECTION HEADINGS
+════════════════════════════════════════════════════════════ */
+.footer-section h3 {
+  display: inline-block;
+  margin-bottom: 22px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #ff3b3f;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.15rem;
+  /* White heading — clearly legible on #111 */
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+/* ════════════════════════════════════════════════════════════
+   QUICK LINKS
+════════════════════════════════════════════════════════════ */
+.footer-section a {
+  display: block;
+  width: fit-content;
+  /* Mid-brightness so links feel softer than headings */
+  color: #c0c0c0;
+  text-decoration: none;
+  margin-bottom: 12px;
+  font-size: 0.93rem;
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.footer-section a:hover {
+  color: #ff3b3f;
+  transform: translateX(6px);
+}
+
+/* ════════════════════════════════════════════════════════════
+   CONTACT ITEMS
+   Strategy: icon gets accent red, text gets light body colour.
+   No blanket svg override — only .contact-icon is targeted.
+════════════════════════════════════════════════════════════ */
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+/* Red accent icons — clearly visible against #111 */
+.contact-icon {
+  color: #ff3b3f;
+  font-size: 1.05rem;
+  margin-top: 4px;
+  flex-shrink: 0;
+  /* Ensure react-icons doesn't inherit a blanket override */
+  fill: #ff3b3f;
+}
+
+.contact-item span {
+  color: #c0c0c0;
+  font-size: 0.93rem;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SOCIAL ICONS
+   Strategy: resting state = dark circle + white icon.
+   Hover = red fill + white icon + lift shadow.
+   We set explicit color on the <a> so the SVG inherits it
+   instead of relying on a blanket footer-container override.
+════════════════════════════════════════════════════════════ */
+.social-icons {
+  display: flex;
+  gap: 14px;
+  margin-top: 25px;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  /* Noticeably lighter than the footer bg so the circle is visible */
+  background: #2e2e2e;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 1.05rem;
+  text-decoration: none;
+  margin-bottom: 0;
+  transform: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Target the SVG directly — guarantees white icon regardless of
+   any inherited color from .footer-section a */
+.social-icons a svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  width: 1em;
+  height: 1em;
+  display: block;
+  transition:
+    color 0.25s ease,
+    fill 0.25s ease;
+}
+
+.social-icons a:hover {
+  background: #ff3b3f;
+  border-color: #ff3b3f;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 59, 63, 0.4);
+}
+
+/* Keep icon white on hover too */
+.social-icons a:hover svg {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BOTTOM BAR
+════════════════════════════════════════════════════════════ */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  padding: 22px;
+  color: #666666;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE – Tablet ≤ 900px
+════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-brand p {
+    max-width: 100%;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE – Mobile ≤ 600px
+════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    padding: 55px 0 35px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+
+  .footer-brand p {
+    margin: auto;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+
+  .footer-section h3 {
+    font-size: 1rem;
+  }
+
+  .footer-bottom {
+    font-size: 0.82rem;
+    padding: 18px;
+  }
+}

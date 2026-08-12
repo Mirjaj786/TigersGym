@@ -1,0 +1,374 @@
+/* ===================================================
+   ForgotPass.css
+   Theme : Tiger's Gym
+   Primary : #ff3b3f
+   Background : #111111
+=================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.forgot-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+}
+
+/* ================= Background ================= */
+
+.forgot-page__bg {
+  position: absolute;
+  inset: 0;
+  background: url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&q=80")
+    center/cover no-repeat;
+}
+
+.forgot-page__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.82);
+  backdrop-filter: blur(4px);
+}
+
+/* ================= Card ================= */
+
+.forgot-card {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 430px;
+
+  background: black;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(18px);
+
+  border-radius: 16px;
+
+  padding: 40px;
+
+  color: white;
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+/* ================= Logo ================= */
+.logo-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo{
+  height: 120px;
+  width: auto;
+  background: black;
+}
+
+.forgot-card__divider {
+  width: 70px;
+  height: 3px;
+  background: #ff3b3f;
+  margin: 18px auto 30px;
+  border-radius: 10px;
+}
+
+/* ================= Header ================= */
+
+.forgot-card__header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.forgot-card__header h1 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: white;
+}
+
+.forgot-card__header p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ================= Form ================= */
+
+.forgot-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.forgot-form__group {
+  margin-bottom: 24px;
+}
+
+.forgot-form__group label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.92rem;
+  color: white;
+  font-weight: 600;
+}
+
+.forgot-form__input-wrap {
+  position: relative;
+}
+
+.forgot-form__icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: #ff3b3f;
+  font-size: 18px;
+}
+
+.forgot-form__input-wrap input {
+  width: 100%;
+  height: 52px;
+
+  padding-left: 48px;
+  padding-right: 15px;
+
+  border-radius: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  color: white;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.forgot-form__input-wrap input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.forgot-form__input-wrap input:focus {
+  border-color: #ff3b3f;
+  box-shadow: 0 0 0 3px rgba(255, 59, 63, 0.15);
+}
+
+/* ================= Buttons ================= */
+
+.forgot-btn {
+  height: 52px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 0.95rem;
+
+  font-weight: 600;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+
+  transition: 0.3s;
+
+  text-decoration: none;
+}
+
+.forgot-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.forgot-btn--primary {
+  background: #ff3b3f;
+  color: white;
+}
+
+.forgot-btn--primary:hover:not(:disabled) {
+  background: #e3292d;
+}
+
+.forgot-btn--secondary {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+.forgot-btn--secondary:hover:not(:disabled) {
+  border-color: #ff3b3f;
+  color: #ff3b3f;
+}
+
+/* ================= Security ================= */
+
+.forgot-security {
+  margin-top: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  font-size: 0.82rem;
+
+  color: rgba(255, 255, 255, 0.6);
+
+  text-align: center;
+}
+
+.forgot-security svg {
+  color: #ff3b3f;
+}
+
+/* ================= Success ================= */
+
+.forgot-success {
+  text-align: center;
+}
+
+.forgot-success__icon {
+  font-size: 70px;
+  color: #ff3b3f;
+  margin-bottom: 20px;
+}
+
+.forgot-success h2 {
+  font-size: 1.9rem;
+  margin-bottom: 18px;
+}
+
+.forgot-success p {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.8;
+}
+
+.forgot-success strong {
+  color: white;
+}
+
+.forgot-success__note {
+  margin-top: 14px;
+  font-size: 0.9rem;
+}
+
+.forgot-success__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+/* ================= Loader ================= */
+
+.loader {
+  width: 18px;
+  height: 18px;
+
+  border: 2px solid rgba(255, 255, 255, 0.3);
+
+  border-top: 2px solid white;
+
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ================= Back Link ================= */
+
+.forgot-page__back {
+  position: absolute;
+
+  left: 30px;
+
+  bottom: 30px;
+
+  z-index: 10;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  text-decoration: none;
+
+  color: white;
+
+  font-size: 0.95rem;
+
+  transition: 0.3s;
+}
+
+.forgot-page__back:hover {
+  color: #ff3b3f;
+}
+
+/* ================= Responsive ================= */
+
+@media (max-width: 768px) {
+  .forgot-card {
+    padding: 32px 24px;
+
+    max-width: 100%;
+  }
+
+  .forgot-card__header h1 {
+    font-size: 1.8rem;
+  }
+
+  .forgot-success h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .forgot-page {
+    padding: 20px 16px;
+  }
+
+  .forgot-card {
+    padding: 28px 20px;
+  }
+
+  .forgot-card__logo {
+    font-size: 1.7rem;
+  }
+
+  .forgot-card__header h1 {
+    font-size: 1.6rem;
+  }
+
+  .forgot-page__back {
+    left: 20px;
+    bottom: 20px;
+    font-size: 0.9rem;
+  }
+
+  .forgot-success__icon {
+    font-size: 58px;
+  }
+}
